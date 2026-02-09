@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gonzalo Cabrera - Junior Software Engineer</title>
+
+  <meta name="description" content="Portfolio y landing page de Gonzalo Cabrera, estudiante de Licenciatura en Sistemas y desarrollador de software en formación. Experiencia en Java, C#, .NET 8, SQL y desarrollo web.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link al CSS externo -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header id="top-header">
+    <nav class="nav">
+      <div class="nav-logo">
+        GC <span>// dev</span>
+      </div>
+      <button class="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+        ☰
+      </button>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section id="inicio">
+      <div class="container hero fade-in">
+        <div>
+          <p class="section-subtitle">Montevideo, Uruguay · Software Developer en formación</p>
+          <h1 class="hero-title">
+            Hola, soy <span>Gonzalo Cabrera</span>
+          </h1>
+          <p class="hero-subtitle">Junior Software Engineer en formación.</p>
+          <p class="hero-text">
+            Estudiante de tercer año de Licenciatura en Sistemas (ORT) con foco en desarrollo
+            backend y fundamentos sólidos en programación orientada a objetos, estructuras de datos y
+            modelado de bases de datos.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="assets/cv/2025CV Español -GonzaloCabrera.docx.pdf" target="_blank" rel="noreferrer">
+              📄 Descargar CV
+            </a>
+            <a class="btn btn-outline" href="#proyectos">
+              💻 Ver proyectos
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <span>📍 Montevideo, Uruguay</span>
+            <span>🌐 Español nativo · Inglés B2</span>
+          </div>
+        </div>
+
+        <div class="hero-photo-wrapper">
+          <div class="hero-photo-inner">
+            <div class="hero-photo">
+              <img src="assets/img/1715722740731.jpeg" alt="Foto de Gonzalo Cabrera">
+            </div>
+            <div class="hero-badge">
+              ⚙️ <span>Java · C# · .NET 8 · SQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Sobre mí -->
+    <section id="sobre-mi">
+      <div class="container about-grid fade-in">
+        <div>
+          <p class="section-subtitle">Sobre mí</p>
+          <h2>Desarrollador de software en formación</h2>
+          <div class="about-text">
+            <p>
+              Soy estudiante avanzado (3.º año) de la Licenciatura en Sistemas en la Universidad ORT,
+              con una base sólida en programación orientada a objetos (Java, C#) y estructuras de datos en C.
+            </p>
+            <p>
+              A lo largo de la carrera participé en proyectos que me expusieron a un espectro amplio de tecnologías:
+              desarrollo web con Bootstrap y pruebas automatizadas con Jest, back-end en Java y C#,
+              algoritmos en C/C++ y modelado de datos con SQL.
+            </p>
+            <p>
+              Trabajo con Git siguiendo un flujo GitFlow y uso GitHub Actions. Aplico TDD sobre .NET 8 para
+              generar código limpio y mantenible, prestando atención a la eficiencia algorítmica y al rendimiento
+              de las aplicaciones.
+            </p>
+            <p>
+              Integro de forma habitual herramientas de IA (ChatGPT, GitHub Copilot) para acelerar prototipos,
+              generar código a partir de diseños propios y refactorizar de forma asistida, manteniendo siempre
+              una mirada crítica sobre la calidad del resultado.
+            </p>
+          </div>
+          <div class="about-highlight">
+            <span>🎓 <strong>Licenciatura en Sistemas</strong> · 3.º año</span>
+            <span>🧠 OOP, Estructuras de datos, SQL</span>
+            <span>🛠️ Git, GitHub Actions, Docker, TDD</span>
+            <span>🤝 Buscando rol de Junior Software Engineer</span>
+          </div>
+        </div>
+
+        <aside class="about-card">
+          <h3>Info rápida</h3>
+          <p>
+            Busco un entorno donde pueda crecer como desarrollador, aportar mi capacidad analítica
+            y aprender de equipos con buenas prácticas de ingeniería.
+          </p>
+          <div class="about-links">
+            <a class="pill-link" href="https://linkedin.com/in/gonzalocabrera9" target="_blank" rel="noreferrer">
+              🔗 LinkedIn
+            </a>
+            <a class="pill-link" href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">
+              🐙 GitHub
+            </a>
+            <a class="pill-link" href="mailto:gcabrera3210@gmail.com">
+              ✉️ Email
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container skills-layout fade-in">
+        <div>
+          <p class="section-subtitle">Skills</p>
+          <h2>Stack técnico</h2>
+
+          <div class="skill-group">
+            <h3>Lenguajes</h3>
+            <small>Base fuerte en programación y estructuras de datos</small>
+            <div class="skill-tags">
+              <button class="skill-tag" type="button" data-skill="java">
+                <span class="icon">☕</span> Java
+              </button>
+              <button class="skill-tag" type="button" data-skill="csharp">
+                <span class="icon">#</span> C#
+              </button>
+              <button class="skill-tag" type="button" data-skill="c">
+                <span class="icon">⚙️</span> C / C++
+              </button>
+              <button class="skill-tag" type="button" data-skill="bash">
+                <span class="icon">💻</span> Bash
+              </button>
+              <button class="skill-tag" type="button" data-skill="js">
+                <span class="icon">🟨</span> JavaScript
+              </button>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>Frameworks &amp; librerías</h3>
+            <small>Experiencia en entornos web y .NET</small>
+            <div class="skill-tags">
+              <button class="skill-tag" type="button" data-skill="dotnet">
+                <span class="icon">🧰</span> .NET 8
+              </button>
+              <button class="skill-tag" type="button" data-skill="blazor">
+                <span class="icon">🌐</span> Blazor
+              </button>
+              <button class="skill-tag" type="button" data-skill="bootstrap">
+                <span class="icon">📱</span> Bootstrap
+              </button>
+              <button class="skill-tag" type="button" data-skill="jest">
+                <span class="icon">🧪</span> Jest
+              </button>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>Herramientas &amp; prácticas</h3>
+            <small>Flujo de trabajo moderno y orientado a calidad</small>
+            <div class="skill-tags">
+              <button class="skill-tag" type="button" data-skill="git">
+                <span class="icon">🌱</span> Git · GitFlow
+              </button>
+              <button class="skill-tag" type="button" data-skill="gha">
+                <span class="icon">⚙️</span> GitHub Actions
+              </button>
+              <button class="skill-tag" type="button" data-skill="docker">
+                <span class="icon">🐳</span> Docker
+              </button>
+              <button class="skill-tag" type="button" data-skill="tdd">
+                <span class="icon">✅</span> TDD
+              </button>
+              <button class="skill-tag" type="button" data-skill="agile">
+                <span class="icon">🏃</span> Metodologías ágiles
+              </button>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>Bases de datos &amp; idiomas</h3>
+            <small>Datos + comunicación</small>
+            <div class="skill-tags">
+              <button class="skill-tag" type="button" data-skill="sql">
+                <span class="icon">🗄️</span> SQL, Modelado de datos
+              </button>
+              <button class="skill-tag" type="button" data-skill="mongo">
+                <span class="icon">🍃</span> MongoDB
+              </button>
+              <button class="skill-tag" type="button" data-skill="spanish">
+                <span class="icon">🇺🇾</span> Español (nativo)
+              </button>
+              <button class="skill-tag" type="button" data-skill="english">
+                <span class="icon">🇬🇧</span> Inglés B2 (FCE)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="skills-panel" aria-live="polite">
+          <p class="skills-panel-title">Detalle de skill</p>
+          <div class="skills-panel-main" id="skills-panel-main">
+            <strong>Pasá el mouse o tocá un skill</strong> para ver un resumen de cómo lo uso en proyectos.
+          </div>
+          <div class="skills-panel-footer" id="skills-panel-footer">
+            Tip: usá esta sección para mostrar cómo conectás tecnologías distintas dentro de un mismo proyecto (por ejemplo, .NET 8 + SQL + pruebas con Jest en el front).
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Experiencia y educación -->
+    <section id="experiencia">
+      <div class="container fade-in">
+        <p class="section-subtitle">Trayectoria</p>
+        <h2>Experiencia &amp; educación</h2>
+
+        <div class="timeline">
+          <div>
+            <div class="timeline-item">
+              <h3 class="timeline-title">Chofer particular – SYC Company</h3>
+              <p class="timeline-meta">Paso de los Toros, Uruguay · Jul 2022 – Mar 2023</p>
+              <p class="timeline-body">
+                Traslado diario de trabajadores de UPM desde y hacia la planta, coordinando rutas y adaptando
+                recorridos según necesidad. Este rol reforzó mi responsabilidad, capacidad de organización y
+                comunicación con equipos de trabajo diversos.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="timeline-item">
+              <h3 class="timeline-title">Licenciatura en Sistemas – ORT</h3>
+              <p class="timeline-meta">Montevideo, Uruguay · 2023 – 2027 (estimado)</p>
+              <p class="timeline-body">
+                Estudiante avanzado (3.º año) en la Licenciatura en Sistemas. Cursando materias orientadas a
+                programación, arquitectura de software, bases de datos, ingeniería de requerimientos
+                y metodologías de desarrollo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proyectos -->
+        <section id="proyectos">
+          <p class="section-subtitle">Proyectos</p>
+          <h2>Lo que estuve construyendo</h2>
+
+          <div class="projects-grid">
+            <article class="project-card">
+              <h3>TaskTrackPro (en curso)</h3>
+              <small>.NET 8 · Blazor · SQL · TDD</small>
+              <p>
+                Aplicación para gestión de proyectos y tareas, desarrollada con enfoque en TDD, GitFlow,
+                CI con GitHub Actions y persistencia en base de datos relacional.
+              </p>
+              <a href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">
+                Ver repositorios relacionados →
+              </a>
+            </article>
+
+            <article class="project-card">
+              <h3>Aplicaciones web con Bootstrap</h3>
+              <small>Java / C# · Bootstrap · Jest</small>
+              <p>
+                Sitios web responsivos que integran front-end en Bootstrap con back-end en Java o C#,
+                incluyendo pruebas automatizadas de componentes con Jest.
+              </p>
+              <a href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">
+                Ver proyectos web →
+              </a>
+            </article>
+
+            <article class="project-card">
+              <h3>Data structures &amp; algoritmos</h3>
+              <small>C / C++ · Complejidad algorítmica</small>
+              <p>
+                Implementación de estructuras de datos (listas, árboles, grafos) y algoritmos clásicos,
+                con foco en análisis de complejidad y rendimiento.
+              </p>
+              <a href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">
+                Ver código de estructuras →
+              </a>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+      <div class="container contact-layout fade-in">
+        <div>
+          <p class="section-subtitle">Contacto</p>
+          <h2>¿Hablamos?</h2>
+          <p class="about-text" style="margin-bottom: 1.5rem;">
+            Si tenés una posición de Junior Software Engineer, pasantía o proyecto freelance alineado con mi perfil,
+            podés contactarme con el formulario o escribirme directo por email o LinkedIn.
+          </p>
+
+          <form id="contact-form" novalidate>
+            <div>
+              <label for="name">Nombre</label>
+              <input type="text" id="name" name="name" autocomplete="name" required />
+              <div class="error-message" id="name-error"></div>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+              <div class="error-message" id="email-error"></div>
+            </div>
+            <div>
+              <label for="message">Mensaje</label>
+              <textarea id="message" name="message" required></textarea>
+              <div class="error-message" id="message-error"></div>
+            </div>
+            <p class="input-hint">
+              El envío está simulado en esta demo. Podés adaptar el JavaScript para integrarlo con tu backend,
+              un servicio de email o un formulario de terceros.
+            </p>
+            <button class="btn btn-primary" type="submit">
+              ✉️ Enviar mensaje
+            </button>
+          </form>
+        </div>
+
+        <aside class="contact-info-card">
+          <h3>Datos de contacto</h3>
+          <ul>
+            <li>
+              <span class="label">Email</span>
+              <a href="mailto:gcabrera3210@gmail.com">gcabrera3210@gmail.com</a>
+            </li>
+            <li>
+              <span class="label">LinkedIn</span>
+              <a href="https://linkedin.com/in/gonzalocabrera9" target="_blank" rel="noreferrer">
+                linkedin.com/in/gonzalocabrera9
+              </a>
+            </li>
+            <li>
+              <span class="label">GitHub</span>
+              <a href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">
+                github.com/gonzalocvv
+              </a>
+            </li>
+            <li>
+              <span class="label">Ubicación</span>
+              Montevideo, Uruguay
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Gonzalo Cabrera. Todos los derechos reservados.</div>
+      <div class="visit-counter" id="visit-counter"></div>
+    </div>
+  </footer>
+
+  <script>
+    // Año dinámico en el footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Navbar: toggle en móvil + sombra al hacer scroll
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const header = document.getElementById("top-header");
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        header.classList.add("nav-scrolled");
+      } else {
+        header.classList.remove("nav-scrolled");
+      }
+    });
+
+    // Cerrar menú al hacer clic en un link (móvil)
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (navLinks.classList.contains("open")) {
+          navLinks.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+
+    // Intersection Observer para animaciones de entrada
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+
+    // Contador de visitas con localStorage
+    const visitKey = "gonzalo-landing-visit-count";
+    let visits = Number(localStorage.getItem(visitKey) || "0");
+    visits += 1;
+    localStorage.setItem(visitKey, String(visits));
+
+    const visitCounterEl = document.getElementById("visit-counter");
+    if (visitCounterEl) {
+      visitCounterEl.textContent =
+        visits === 1
+          ? "Esta es tu primera visita desde este navegador."
+          : `Esta página se abrió ${visits} veces desde este navegador.`;
+    }
+
+    // Panel interactivo de skills
+    const skillDescriptions = {
+      java:
+        "Java: base sólida para OOP y backend. Proyectos académicos con énfasis en diseño de clases, patrones y testing.",
+      csharp:
+        "C#: desarrollo con .NET 8 y Blazor, aplicando TDD y buenas prácticas para construir APIs y aplicaciones web.",
+      c:
+        "C / C++: implementación de estructuras de datos y algoritmos, con foco en complejidad y rendimiento.",
+      bash:
+        "Bash: scripts sencillos para automatizar tareas de desarrollo, compilación y manejo de entornos.",
+      js:
+        "JavaScript: interactividad en front-end, validación de formularios y manejo del DOM sin frameworks pesados.",
+      dotnet:
+        ".NET 8: uso de las nuevas APIs, enfoque en código limpio y pruebas automatizadas sobre backends.",
+      blazor:
+        "Blazor: desarrollo de interfaces web reactivas usando C#, integradas con APIs y componentes reutilizables.",
+      bootstrap:
+        "Bootstrap: maquetado responsive rápido y coherente, usado en proyectos web académicos y personales.",
+      jest:
+        "Jest: pruebas automatizadas para componentes y lógica de front-end, asegurando estabilidad al refactorizar.",
+      git:
+        "Git + GitFlow: ramas claras para features, releases y hotfixes, colaborando con buenas prácticas de versionado.",
+      gha:
+        "GitHub Actions: pipelines básicos para ejecutar tests y validaciones de forma automática al hacer push.",
+      docker:
+        "Docker: contenedores para bases de datos y servicios, facilitando entornos reproducibles para desarrollo.",
+      tdd:
+        "TDD: enfoque red-green-refactor en proyectos .NET, priorizando diseño claro y mantenimiento sencillo.",
+      agile:
+        "Metodologías ágiles: trabajo iterativo, feedback frecuente y priorización basada en valor de negocio.",
+      sql:
+        "SQL: modelado de datos, diseño de esquemas y consultas optimizadas usando herramientas como SQLDeveloper.",
+      mongo:
+        "MongoDB: trabajo con documentos y colecciones, adecuado para datos semiestructurados.",
+      spanish:
+        "Español: nativo, ideal para comunicación fluida con equipos y clientes en Latinoamérica.",
+      english:
+        "Inglés B2 (FCE): lectura cómoda de documentación técnica y comunicación en equipos internacionales."
+    };
+
+    const skillsPanelMain = document.getElementById("skills-panel-main");
+    const skillsPanelFooter = document.getElementById("skills-panel-footer");
+
+    document.querySelectorAll(".skill-tag").forEach((tag) => {
+      tag.addEventListener("mouseenter", () => {
+        const key = tag.dataset.skill;
+        const description = skillDescriptions[key] || "";
+        if (description) {
+          skillsPanelMain.innerHTML = `<strong>${tag.textContent.trim()}:</strong> ${description}`;
+          skillsPanelFooter.textContent =
+            "Este resumen se basa en experiencias de proyectos académicos y personales.";
+        }
+      });
+
+      // En pantallas táctiles, usar click/tap
+      tag.addEventListener("click", () => {
+        const key = tag.dataset.skill;
+        const description = skillDescriptions[key] || "";
+        if (description) {
+          skillsPanelMain.innerHTML = `<strong>${tag.textContent.trim()}:</strong> ${description}`;
+          skillsPanelFooter.textContent =
+            "Tap de nuevo en otra skill para seguir explorando el stack.";
+        }
+      });
+    });
+
+    // Validación básica de formulario
+    const contactForm = document.getElementById("contact-form");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+
+    const nameError = document.getElementById("name-error");
+    const emailError = document.getElementById("email-error");
+    const messageError = document.getElementById("message-error");
+
+    function clearErrors() {
+      nameError.textContent = "";
+      emailError.textContent = "";
+      messageError.textContent = "";
+    }
+
+    function validateEmail(value) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(value);
+    }
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      let valid = true;
+
+      if (!nameInput.value.trim()) {
+        nameError.textContent = "Por favor ingresá tu nombre.";
+        valid = false;
+      }
+
+      if (!emailInput.value.trim()) {
+        emailError.textContent = "El email es obligatorio.";
+        valid = false;
+      } else if (!validateEmail(emailInput.value.trim())) {
+        emailError.textContent = "Ingresá un email válido.";
+        valid = false;
+      }
+
+      if (!messageInput.value.trim()) {
+        messageError.textContent = "Contame brevemente en qué podemos trabajar juntos.";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // En producción, acá iría el fetch / integración real
+      alert("Gracias por tu mensaje. Esta demo simula el envío; adaptá el código para conectarlo a tu backend o servicio de correo.");
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
