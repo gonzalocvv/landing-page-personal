@@ -31,16 +31,23 @@ El objetivo del proyecto es:
 ---
 
 ## 📂 Estructura del proyecto
+
+```text
 landing-page-personal/
 │
 ├── index.html
 ├── .nojekyll
-├── assets/
-│   ├── css/
-│   ├── js/
-│   ├── img/
-│   └── cv/
-
+│
+└── assets/
+    ├── css/
+    │   └── styles.css
+    ├── js/
+    │   └── main.js
+    ├── img/
+    │   └── foto-perfil.jpg
+    └── cv/
+        └── Gonzalo-Cabrera-CV.pdf
+```
 ---
 
 ## 🚀 Deploy
