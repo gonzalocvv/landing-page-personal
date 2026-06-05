@@ -1,89 +1,80 @@
-# 🌐 Landing Page Personal – Gonzalo Cabrera
+# 🌐 Landing Page Personal — Gonzalo Cabrera
 
-Portfolio personal desarrollado con HTML, CSS y JavaScript, desplegado en GitHub Pages.
+Portfolio personal desarrollado con HTML, CSS y JavaScript (vanilla), desplegado en GitHub Pages.
 
-🔗 **Sitio online:**  
-https://gonzalocvv.github.io/landing-page-personal/
+🔗 **Sitio online:** https://gonzalocvv.github.io/landing-page-personal/
 
 ---
 
 ## 👨‍💻 Sobre el proyecto
 
-Esta landing page fue creada como portfolio profesional para presentar mi perfil como desarrollador de software en formación.
+Landing page que presenta mi perfil como **Software Developer enfocado en backend**,
+actualmente pasante en **Tata Consultancy Services**.
 
-El objetivo del proyecto es:
+Objetivos del proyecto:
 
-- Mostrar información profesional de forma clara y moderna
-- Centralizar acceso a CV, proyectos y redes
+- Presentar mi perfil profesional de forma clara y moderna
+- Centralizar el acceso a CV, proyectos y redes
 - Tener presencia online propia desplegada con GitHub Pages
-- Practicar maquetado responsive y organización de assets
+- Practicar maquetado responsive, accesibilidad y JS sin frameworks
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+## ✨ Características
 
-- HTML5
-- CSS3
-- JavaScript
-- Git & GitHub
-- GitHub Pages (deploy)
+- **Hero con terminal animada** — efecto _typewriter_ en vanilla JS con resaltado de sintaxis
+- **Diseño dark** con sistema de tokens CSS (paleta índigo + tipografías Sora / JetBrains Mono)
+- **Panel de skills interactivo** — hover/tap para ver cómo uso cada tecnología
+- **Animaciones de entrada** con `IntersectionObserver`
+- **Formulario de contacto** que abre el cliente de email con el mensaje prellenado (`mailto`)
+- **Responsive** y respetuoso de `prefers-reduced-motion`
 
 ---
 
-## 📂 Estructura del proyecto
+## 🛠️ Tecnologías
+
+- HTML5 · CSS3 · JavaScript (vanilla)
+- Git & GitHub · GitHub Pages (deploy)
+
+Stack que muestro en el portfolio: **C#, .NET 8, SQL, Apex (Salesforce), Java, C/C++**.
+
+---
+
+## 📂 Estructura
 
 ```text
 landing-page-personal/
-│
 ├── index.html
 ├── .nojekyll
-│
+├── README.md
 └── assets/
     ├── css/
-    │   └── styles.css
+    │   └── styles.css      # sistema de diseño + estilos
     ├── js/
-    │   └── main.js
+    │   └── main.js         # nav, typewriter, skills, form
     ├── img/
-    │   └── foto-perfil.jpg
+    │   └── selfie.JPG
     └── cv/
-        └── Gonzalo-Cabrera-CV.pdf
+        └── Cabrera_Viera_Gonzalo_CV.pdf
 ```
+
 ---
 
 ## 🚀 Deploy
 
-El proyecto está desplegado utilizando **GitHub Pages** desde la rama `main`.
-
-Se desactivó Jekyll mediante el archivo `.nojekyll` para permitir el uso de una estructura estática personalizada.
-
----
-
-## 🎯 Objetivo profesional
-
-Soy estudiante avanzado de la Licenciatura en Sistemas (ORT Uruguay), con foco en desarrollo backend y fundamentos sólidos en:
-
-- Programación orientada a objetos
-- Estructuras de datos
-- Modelado de bases de datos
-- Java
-- C#
-- .NET
-- SQL
-
-Busco seguir creciendo en entornos profesionales donde pueda aportar capacidad analítica y aprender de equipos con buenas prácticas de ingeniería.
+Desplegado con **GitHub Pages** desde la rama `main`.
+Se desactiva Jekyll mediante `.nojekyll` para servir la estructura estática tal cual.
 
 ---
 
 ## 📫 Contacto
 
-- LinkedIn
-- GitHub
-- Email
-
-(Enlaces disponibles en la landing page)
+- **Email:** gcabrera3210@gmail.com
+- **LinkedIn:** [linkedin.com/in/gonzalocabrera9](https://linkedin.com/in/gonzalocabrera9)
+- **GitHub:** [github.com/gonzalocvv](https://github.com/gonzalocvv)
 
 ---
 
-## 📌 Estado del proyecto
+## 📌 Estado
 
 Proyecto activo y en mejora continua.
