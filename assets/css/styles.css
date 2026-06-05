@@ -286,6 +286,26 @@ header.nav-scrolled {
 :root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
 :root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
+.lang-toggle {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  height: 34px;
+  padding: 0 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-mut);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.lang-toggle:hover {
+  color: var(--text);
+  border-color: rgba(129, 140, 248, 0.45);
+  background: var(--line-soft);
+}
+
 /* ---------- Hero ---------- */
 #inicio { padding-top: clamp(2.5rem, 6vh, 4.5rem); }
 

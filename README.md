@@ -22,8 +22,10 @@ Objetivos del proyecto:
 
 ## ✨ Características
 
+- **Bilingüe (ES/EN)** — switch de idioma con default según el navegador y preferencia persistida
+- **Modo claro/oscuro** — default según el dispositivo (`prefers-color-scheme`) + toggle manual
 - **Hero con terminal animada** — efecto _typewriter_ en vanilla JS con resaltado de sintaxis
-- **Diseño dark** con sistema de tokens CSS (paleta índigo + tipografías Sora / JetBrains Mono)
+- **Diseño con tokens CSS** (paleta índigo + tipografías Sora / JetBrains Mono)
 - **Panel de skills interactivo** — hover/tap para ver cómo uso cada tecnología
 - **Animaciones de entrada** con `IntersectionObserver`
 - **Formulario de contacto** que abre el cliente de email con el mensaje prellenado (`mailto`)

@@ -44,12 +44,13 @@
       <a class="nav-logo" href="#inicio">GC <span>// dev</span></a>
       <div class="nav-actions">
         <ul class="nav-links">
-          <li><a href="#sobre-mi">sobre mí</a></li>
-          <li><a href="#skills">skills</a></li>
-          <li><a href="#experiencia">experiencia</a></li>
-          <li><a href="#proyectos">proyectos</a></li>
-          <li><a href="#contacto">contacto</a></li>
+          <li><a href="#sobre-mi" data-i18n="nav.about">sobre mí</a></li>
+          <li><a href="#skills" data-i18n="nav.skills">skills</a></li>
+          <li><a href="#experiencia" data-i18n="nav.experience">experiencia</a></li>
+          <li><a href="#proyectos" data-i18n="nav.projects">proyectos</a></li>
+          <li><a href="#contacto" data-i18n="nav.contact">contacto</a></li>
         </ul>
+        <button class="lang-toggle" type="button" aria-label="Switch to English">EN</button>
         <button class="theme-toggle" type="button" aria-label="Cambiar a modo claro" title="Cambiar tema">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"></circle>
@@ -71,18 +72,18 @@
         <!-- Columna izquierda -->
         <div>
           <span class="pill">
-            <span class="dot"></span> Pasante en Tata Consultancy Services
+            <span class="dot"></span> <span data-i18n="hero.pill">Pasante en Tata Consultancy Services</span>
           </span>
-          <p class="hero-loc">Montevideo, Uruguay · Español nativo · Inglés B2</p>
-          <h1 class="hero-title">Hola, soy<br /><span class="accent">Gonzalo Cabrera</span></h1>
-          <p class="hero-subtitle">
+          <p class="hero-loc" data-i18n="hero.loc">Montevideo, Uruguay · Español nativo · Inglés B2</p>
+          <h1 class="hero-title"><span data-i18n="hero.greeting">Hola, soy</span><br /><span class="accent">Gonzalo Cabrera</span></h1>
+          <p class="hero-subtitle" data-i18n="hero.subtitle">
             Software Developer enfocado en backend. Trabajo con C#, .NET 8 y SQL,
             y sumo experiencia en Salesforce (Apex) en mi pasantía en TCS.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
-            <a class="btn btn-outline" href="assets/cv/Cabrera_Viera_Gonzalo_CV.pdf" target="_blank" rel="noreferrer">
+            <a class="btn btn-primary" href="#proyectos" data-i18n="hero.viewProjects">Ver proyectos</a>
+            <a class="btn btn-outline" href="assets/cv/Cabrera_Viera_Gonzalo_CV.pdf" target="_blank" rel="noreferrer" data-i18n="hero.downloadCV">
               Descargar CV
             </a>
           </div>
@@ -113,33 +114,33 @@
     <section id="sobre-mi">
       <div class="container about-grid fade-in">
         <div>
-          <p class="section-subtitle">sobre mí</p>
-          <h2>Desarrollador con foco en backend</h2>
+          <p class="section-subtitle" data-i18n="about.eyebrow">sobre mí</p>
+          <h2 data-i18n="about.title">Desarrollador con foco en backend</h2>
           <div class="about-text">
-            <p>
+            <p data-i18n="about.p1">
               Soy estudiante avanzado (3.º año) de la Licenciatura en Sistemas en la Universidad ORT,
               con una base sólida en programación orientada a objetos (C#, Java) y estructuras de datos.
             </p>
-            <p>
+            <p data-i18n="about.p2">
               Actualmente trabajo como pasante en <strong>Tata Consultancy Services</strong>, donde sumo
               experiencia en el ecosistema Salesforce desarrollando con Apex, mientras sigo fortaleciendo
               mi base en backend con C#, .NET 8 y SQL.
             </p>
-            <p>
+            <p data-i18n="about.p3">
               Aplico TDD sobre .NET 8 para escribir código limpio y mantenible, trabajo con Git siguiendo
               un flujo GitFlow y uso GitHub Actions para integración continua, prestando atención a la
               eficiencia algorítmica y al rendimiento.
             </p>
-            <p>
+            <p data-i18n="about.p4">
               Integro herramientas de IA (Claude, GitHub Copilot) en mi flujo para acelerar prototipos y
               refactorizar de forma asistida, manteniendo siempre una mirada crítica sobre la calidad del resultado.
             </p>
           </div>
           <div class="about-highlight">
-            <span>🎓 <strong>Lic. en Sistemas</strong> · ORT · 3.º año</span>
-            <span>💼 <strong>Pasante</strong> en TCS · Salesforce</span>
-            <span>🧠 Backend · OOP · SQL</span>
-            <span>🛠️ Git · GitHub Actions · TDD</span>
+            <span data-i18n="about.hl1">🎓 <strong>Lic. en Sistemas</strong> · ORT · 3.º año</span>
+            <span data-i18n="about.hl2">💼 <strong>Pasante</strong> en TCS · Salesforce</span>
+            <span data-i18n="about.hl3">🧠 Backend · OOP · SQL</span>
+            <span data-i18n="about.hl4">🛠️ Git · GitHub Actions · TDD</span>
           </div>
         </div>
 
@@ -162,13 +163,13 @@
     <section id="skills">
       <div class="container skills-layout fade-in">
         <div>
-          <p class="section-subtitle">skills</p>
-          <h2>Stack técnico</h2>
-          <p class="section-lead">Las tecnologías con las que trabajo a diario y las que estoy sumando en mi pasantía.</p>
+          <p class="section-subtitle" data-i18n="skills.eyebrow">skills</p>
+          <h2 data-i18n="skills.title">Stack técnico</h2>
+          <p class="section-lead" data-i18n="skills.lead">Las tecnologías con las que trabajo a diario y las que estoy sumando en mi pasantía.</p>
 
           <div class="skill-group">
-            <h3>Lenguajes</h3>
-            <small>Base fuerte en backend y estructuras de datos</small>
+            <h3 data-i18n="skills.g1Title">Lenguajes</h3>
+            <small data-i18n="skills.g1Small">Base fuerte en backend y estructuras de datos</small>
             <div class="skill-tags">
               <button class="skill-tag" type="button" data-skill="csharp"><span class="icon">#</span> C#</button>
               <button class="skill-tag" type="button" data-skill="apex"><span class="icon">☁️</span> Apex</button>
@@ -180,8 +181,8 @@
           </div>
 
           <div class="skill-group">
-            <h3>Frameworks &amp; plataformas</h3>
-            <small>Entornos .NET, Salesforce y web</small>
+            <h3 data-i18n="skills.g2Title">Frameworks &amp; plataformas</h3>
+            <small data-i18n="skills.g2Small">Entornos .NET, Salesforce y web</small>
             <div class="skill-tags">
               <button class="skill-tag" type="button" data-skill="dotnet"><span class="icon">🧰</span> .NET 8</button>
               <button class="skill-tag" type="button" data-skill="salesforce"><span class="icon">☁️</span> Salesforce</button>
@@ -192,8 +193,8 @@
           </div>
 
           <div class="skill-group">
-            <h3>Herramientas &amp; prácticas</h3>
-            <small>Flujo de trabajo moderno y orientado a calidad</small>
+            <h3 data-i18n="skills.g3Title">Herramientas &amp; prácticas</h3>
+            <small data-i18n="skills.g3Small">Flujo de trabajo moderno y orientado a calidad</small>
             <div class="skill-tags">
               <button class="skill-tag" type="button" data-skill="git"><span class="icon">🌱</span> Git · GitFlow</button>
               <button class="skill-tag" type="button" data-skill="gha"><span class="icon">⚙️</span> GitHub Actions</button>
@@ -204,23 +205,23 @@
           </div>
 
           <div class="skill-group">
-            <h3>Bases de datos &amp; idiomas</h3>
-            <small>Datos + comunicación</small>
+            <h3 data-i18n="skills.g4Title">Bases de datos &amp; idiomas</h3>
+            <small data-i18n="skills.g4Small">Datos + comunicación</small>
             <div class="skill-tags">
               <button class="skill-tag" type="button" data-skill="sql"><span class="icon">🗄️</span> SQL</button>
               <button class="skill-tag" type="button" data-skill="mongo"><span class="icon">🍃</span> MongoDB</button>
-              <button class="skill-tag" type="button" data-skill="spanish"><span class="icon">🇺🇾</span> Español (nativo)</button>
-              <button class="skill-tag" type="button" data-skill="english"><span class="icon">🇬🇧</span> Inglés B2 (FCE)</button>
+              <button class="skill-tag" type="button" data-skill="spanish"><span class="icon">🇺🇾</span> <span data-i18n="skills.spanish">Español (nativo)</span></button>
+              <button class="skill-tag" type="button" data-skill="english"><span class="icon">🇬🇧</span> <span data-i18n="skills.english">Inglés B2 (FCE)</span></button>
             </div>
           </div>
         </div>
 
         <aside class="skills-panel" aria-live="polite">
-          <p class="skills-panel-title">// detalle</p>
-          <div class="skills-panel-main" id="skills-panel-main">
+          <p class="skills-panel-title" data-i18n="skills.panelTitle">// detalle</p>
+          <div class="skills-panel-main" id="skills-panel-main" data-i18n="skills.panelDefault">
             <strong>Pasá el mouse o tocá un skill</strong> para ver cómo lo uso en proyectos reales.
           </div>
-          <div class="skills-panel-footer" id="skills-panel-footer">
+          <div class="skills-panel-footer" id="skills-panel-footer" data-i18n="skills.panelFooter">
             Cada tecnología conecta con un proyecto: por ejemplo .NET 8 + SQL + TDD en TaskTrackPro.
           </div>
         </aside>
@@ -230,26 +231,26 @@
     <!-- Experiencia y educación -->
     <section id="experiencia">
       <div class="container fade-in">
-        <p class="section-subtitle">trayectoria</p>
-        <h2>Experiencia &amp; educación</h2>
-        <p class="section-lead">Dónde estoy creciendo como desarrollador y qué estudio en paralelo.</p>
+        <p class="section-subtitle" data-i18n="exp.eyebrow">trayectoria</p>
+        <h2 data-i18n="exp.title">Experiencia &amp; educación</h2>
+        <p class="section-lead" data-i18n="exp.lead">Dónde estoy creciendo como desarrollador y qué estudio en paralelo.</p>
 
         <div class="timeline">
           <div class="timeline-col">
-            <p class="timeline-col-title">Experiencia</p>
+            <p class="timeline-col-title" data-i18n="exp.colExp">Experiencia</p>
             <div class="timeline-item is-current">
-              <h3 class="timeline-title">Pasante – Tata Consultancy Services</h3>
-              <p class="timeline-meta">Montevideo, Uruguay · Abr 2026 – Actualidad</p>
-              <p class="timeline-body">
+              <h3 class="timeline-title" data-i18n="exp.tcsTitle">Pasante – Tata Consultancy Services</h3>
+              <p class="timeline-meta" data-i18n="exp.tcsMeta">Montevideo, Uruguay · Abr 2026 – Actualidad</p>
+              <p class="timeline-body" data-i18n="exp.tcsBody">
                 Desarrollo dentro del ecosistema Salesforce, trabajando con Apex y buenas prácticas de la
                 plataforma. Sumo experiencia en un entorno profesional con equipos distribuidos, control de
                 versiones y trabajo orientado a calidad.
               </p>
             </div>
             <div class="timeline-item">
-              <h3 class="timeline-title">Chofer particular – SYC Company</h3>
-              <p class="timeline-meta">Paso de los Toros, Uruguay · Jul 2022 – Mar 2023</p>
-              <p class="timeline-body">
+              <h3 class="timeline-title" data-i18n="exp.sycTitle">Chofer particular – SYC Company</h3>
+              <p class="timeline-meta" data-i18n="exp.sycMeta">Paso de los Toros, Uruguay · Jul 2022 – Mar 2023</p>
+              <p class="timeline-body" data-i18n="exp.sycBody">
                 Traslado diario de trabajadores de UPM coordinando rutas y horarios. Un rol que reforzó mi
                 responsabilidad, organización y comunicación con equipos diversos.
               </p>
@@ -257,19 +258,19 @@
           </div>
 
           <div class="timeline-col">
-            <p class="timeline-col-title">Educación</p>
+            <p class="timeline-col-title" data-i18n="exp.colEdu">Educación</p>
             <div class="timeline-item is-current">
-              <h3 class="timeline-title">Licenciatura en Sistemas – ORT</h3>
-              <p class="timeline-meta">Montevideo, Uruguay · 2023 – 2027 (estimado)</p>
-              <p class="timeline-body">
+              <h3 class="timeline-title" data-i18n="exp.ortTitle">Licenciatura en Sistemas – ORT</h3>
+              <p class="timeline-meta" data-i18n="exp.ortMeta">Montevideo, Uruguay · 2023 – 2027 (estimado)</p>
+              <p class="timeline-body" data-i18n="exp.ortBody">
                 Estudiante avanzado (3.º año). Cursando materias de programación, arquitectura de software,
                 bases de datos, ingeniería de requerimientos y metodologías de desarrollo.
               </p>
             </div>
             <div class="timeline-item">
-              <h3 class="timeline-title">Inglés B2 – First Certificate (FCE)</h3>
-              <p class="timeline-meta">Certificación Cambridge</p>
-              <p class="timeline-body">
+              <h3 class="timeline-title" data-i18n="exp.fceTitle">Inglés B2 – First Certificate (FCE)</h3>
+              <p class="timeline-meta" data-i18n="exp.fceMeta">Certificación Cambridge</p>
+              <p class="timeline-body" data-i18n="exp.fceBody">
                 Nivel intermedio-alto. Lectura cómoda de documentación técnica y comunicación con equipos
                 internacionales.
               </p>
@@ -282,9 +283,9 @@
     <!-- Proyectos -->
     <section id="proyectos">
       <div class="container fade-in">
-        <p class="section-subtitle">proyectos</p>
-        <h2>Lo que estuve construyendo</h2>
-        <p class="section-lead">Una selección de proyectos académicos y personales donde aplico el stack.</p>
+        <p class="section-subtitle" data-i18n="proj.eyebrow">proyectos</p>
+        <h2 data-i18n="proj.title">Lo que estuve construyendo</h2>
+        <p class="section-lead" data-i18n="proj.lead">Una selección de proyectos académicos y personales donde aplico el stack.</p>
 
         <div class="projects-grid">
           <article class="project-card">
@@ -293,13 +294,13 @@
               <span class="project-icon">🧾</span>
             </div>
             <span class="project-stack">Python · Claude API · Notion · Railway</span>
-            <p>
+            <p data-i18n="proj.trbDesc">
               Bot de Telegram que procesa fotos de tickets con IA: extrae comercio, fecha y productos,
               y los guarda automáticamente en Notion. También registra gastos e ingresos por texto.
             </p>
             <div class="project-links">
               <a class="project-link" href="https://github.com/gonzalocvv/TicketReceiptBot" target="_blank" rel="noreferrer">GitHub →</a>
-              <a class="project-link" href="https://www.linkedin.com/posts/gonzalocabrera9_empezando-el-nuevo-semestre-quer%C3%ADa-saber-ugcPost-7448389935453388800-JPEp" target="_blank" rel="noreferrer">Post en LinkedIn →</a>
+              <a class="project-link" href="https://www.linkedin.com/posts/gonzalocabrera9_empezando-el-nuevo-semestre-quer%C3%ADa-saber-ugcPost-7448389935453388800-JPEp" target="_blank" rel="noreferrer" data-i18n="proj.trbLinkedin">Post en LinkedIn →</a>
             </div>
           </article>
 
@@ -309,12 +310,12 @@
               <span class="project-icon">🔁</span>
             </div>
             <span class="project-stack">Next.js · Vercel · full-stack</span>
-            <span class="project-badge">en desarrollo · repo privado</span>
-            <p>
+            <span class="project-badge" data-i18n="proj.cambBadge">en desarrollo · repo privado</span>
+            <p data-i18n="proj.cambDesc">
               Plataforma para encontrar matches de intercambio de figuritas. Diseñada y desarrollada
               por mí end to end —frontend, backend y deploy—.
             </p>
-            <a class="project-link" href="https://cambia-la.vercel.app/" target="_blank" rel="noreferrer">Probar la demo →</a>
+            <a class="project-link" href="https://cambia-la.vercel.app/" target="_blank" rel="noreferrer" data-i18n="proj.cambDemo">Probar la demo →</a>
           </article>
 
           <article class="project-card">
@@ -323,11 +324,11 @@
               <span class="project-icon">📋</span>
             </div>
             <span class="project-stack">.NET 8 · Blazor · SQL · TDD</span>
-            <p>
+            <p data-i18n="proj.taskDesc">
               Aplicación para gestión de proyectos y tareas, desarrollada con enfoque en TDD, GitFlow,
               CI con GitHub Actions y persistencia en base de datos relacional.
             </p>
-            <a class="project-link" href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">Ver en GitHub →</a>
+            <a class="project-link" href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer" data-i18n="proj.taskGithub">Ver en GitHub →</a>
           </article>
         </div>
       </div>
@@ -337,39 +338,39 @@
     <section id="contacto">
       <div class="container contact-layout fade-in">
         <div>
-          <p class="section-subtitle">contacto</p>
-          <h2>¿Hablamos?</h2>
-          <p class="section-lead">
+          <p class="section-subtitle" data-i18n="contact.eyebrow">contacto</p>
+          <h2 data-i18n="contact.title">¿Hablamos?</h2>
+          <p class="section-lead" data-i18n="contact.lead">
             ¿Tenés un proyecto, una propuesta o simplemente querés saludar? Escribime con el formulario
             o directo por email o LinkedIn.
           </p>
 
           <form id="contact-form" novalidate>
             <div class="field">
-              <label for="name">Nombre</label>
+              <label for="name" data-i18n="contact.name">Nombre</label>
               <input type="text" id="name" name="name" autocomplete="name" required />
               <div class="error-message" id="name-error"></div>
             </div>
             <div class="field">
-              <label for="email">Email</label>
+              <label for="email" data-i18n="contact.emailLabel">Email</label>
               <input type="email" id="email" name="email" autocomplete="email" required />
               <div class="error-message" id="email-error"></div>
             </div>
             <div class="field">
-              <label for="message">Mensaje</label>
+              <label for="message" data-i18n="contact.message">Mensaje</label>
               <textarea id="message" name="message" required></textarea>
               <div class="error-message" id="message-error"></div>
             </div>
-            <p class="input-hint">Al enviar se abre tu cliente de email con el mensaje listo para mandar.</p>
-            <button class="btn btn-primary" type="submit">Enviar mensaje</button>
+            <p class="input-hint" data-i18n="contact.hint">Al enviar se abre tu cliente de email con el mensaje listo para mandar.</p>
+            <button class="btn btn-primary" type="submit" data-i18n="contact.send">Enviar mensaje</button>
           </form>
         </div>
 
         <aside class="contact-card">
-          <h3>Datos de contacto</h3>
+          <h3 data-i18n="contact.cardTitle">Datos de contacto</h3>
           <ul>
             <li>
-              <span class="label">Email</span>
+              <span class="label" data-i18n="contact.emailLabel2">Email</span>
               <a href="mailto:gcabrera3210@gmail.com">gcabrera3210@gmail.com</a>
             </li>
             <li>
@@ -381,7 +382,7 @@
               <a href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">github.com/gonzalocvv</a>
             </li>
             <li>
-              <span class="label">Ubicación</span>
+              <span class="label" data-i18n="contact.location">Ubicación</span>
               <span>Montevideo, Uruguay</span>
             </li>
           </ul>
