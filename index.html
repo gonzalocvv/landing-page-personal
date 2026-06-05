@@ -3,6 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tema: setea claro/oscuro antes del primer paint para evitar el flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("gc-theme");
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+
   <title>Gonzalo Cabrera — Software Developer</title>
 
   <meta name="description" content="Gonzalo Cabrera — Software Developer enfocado en backend. Pasante en Tata Consultancy Services. C#, .NET 8, SQL y Apex (Salesforce). Montevideo, Uruguay." />
@@ -26,14 +42,25 @@
   <header id="top-header">
     <nav class="nav">
       <a class="nav-logo" href="#inicio">GC <span>// dev</span></a>
-      <button class="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">☰</button>
-      <ul class="nav-links">
-        <li><a href="#sobre-mi">sobre mí</a></li>
-        <li><a href="#skills">skills</a></li>
-        <li><a href="#experiencia">experiencia</a></li>
-        <li><a href="#proyectos">proyectos</a></li>
-        <li><a href="#contacto">contacto</a></li>
-      </ul>
+      <div class="nav-actions">
+        <ul class="nav-links">
+          <li><a href="#sobre-mi">sobre mí</a></li>
+          <li><a href="#skills">skills</a></li>
+          <li><a href="#experiencia">experiencia</a></li>
+          <li><a href="#proyectos">proyectos</a></li>
+          <li><a href="#contacto">contacto</a></li>
+        </ul>
+        <button class="theme-toggle" type="button" aria-label="Cambiar a modo claro" title="Cambiar tema">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button class="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">☰</button>
+      </div>
     </nav>
   </header>
 

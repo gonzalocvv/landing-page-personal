@@ -13,6 +13,45 @@
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+  /* ---------- Tema claro/oscuro ----------
+     El <head> ya seteó data-theme antes del paint (según localStorage o el
+     dispositivo). Acá cableamos el botón, persistimos la elección y, si el
+     usuario no eligió manualmente, seguimos el cambio del sistema en vivo. */
+  const THEME_KEY = "gc-theme";
+  const root = document.documentElement;
+  const themeToggle = document.querySelector(".theme-toggle");
+
+  const syncToggleLabel = () => {
+    if (!themeToggle) return;
+    const isLight = root.getAttribute("data-theme") === "light";
+    themeToggle.setAttribute("aria-label", isLight ? "Cambiar a modo oscuro" : "Cambiar a modo claro");
+  };
+  syncToggleLabel();
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (_) {}
+      syncToggleLabel();
+    });
+  }
+
+  // Seguir la preferencia del sistema solo si el usuario no eligió a mano.
+  if (window.matchMedia) {
+    const mq = window.matchMedia("(prefers-color-scheme: light)");
+    const onSystemChange = (e) => {
+      let stored = null;
+      try { stored = localStorage.getItem(THEME_KEY); } catch (_) {}
+      if (stored !== "light" && stored !== "dark") {
+        root.setAttribute("data-theme", e.matches ? "light" : "dark");
+        syncToggleLabel();
+      }
+    };
+    if (mq.addEventListener) mq.addEventListener("change", onSystemChange);
+    else if (mq.addListener) mq.addListener(onSystemChange);
+  }
+
   /* ---------- Navbar: toggle móvil + sombra al scrollear ---------- */
   const navToggle = document.querySelector(".nav-toggle");
   const navLinks = document.querySelector(".nav-links");
@@ -61,13 +100,14 @@
   }
 
   /* ---------- Typewriter de la terminal del hero ---------- */
+  // Cada segmento referencia una clase .syn-* (los colores los define el CSS por tema).
   const COL = {
-    kw:   "#818cf8", // palabras clave
-    name: "#e2e8f0", // identificadores
-    punc: "#7a8597", // puntuación
-    key:  "#34d399", // claves del objeto
-    str:  "#fbbf77", // strings
-    bool: "#f0abfc"  // booleanos
+    kw:   "syn-kw",   // palabras clave
+    name: "syn-name", // identificadores
+    punc: "syn-punc", // puntuación
+    key:  "syn-key",  // claves del objeto
+    str:  "syn-str",  // strings
+    bool: "syn-bool"  // booleanos
   };
 
   const code = [
@@ -92,7 +132,7 @@
       // Render instantáneo, sin animación.
       code.forEach((seg) => {
         const s = document.createElement("span");
-        s.style.color = seg.c;
+        s.className = seg.c;
         s.textContent = seg.t;
         host.appendChild(s);
       });
@@ -106,7 +146,7 @@
         const seg = code[si];
         if (ci === 0) {
           span = document.createElement("span");
-          span.style.color = seg.c;
+          span.className = seg.c;
           host.insertBefore(span, cursor);
         }
         const ch = seg.t.charAt(ci);
