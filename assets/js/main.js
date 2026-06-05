@@ -52,7 +52,7 @@
       "I apply TDD on .NET 8 to write clean, maintainable code, work with Git following a GitFlow workflow, and use GitHub Actions for continuous integration, with an eye on algorithmic efficiency and performance.",
     "about.p4":
       "I bring AI tools (Claude, GitHub Copilot) into my workflow to speed up prototyping and refactor with assistance, always keeping a critical eye on the quality of the result.",
-    "about.hl1": "🎓 <strong>BSc in Comp. Systems</strong> · ORT · 3rd year",
+    "about.hl1": "🎓 <strong>Bachelor's in Computer Systems</strong> · ORT · 3rd year",
     "about.hl2": "💼 <strong>Intern</strong> at TCS · Salesforce",
     "about.hl3": "🧠 Backend · OOP · SQL",
     "about.hl4": "🛠️ Git · GitHub Actions · TDD",
@@ -87,7 +87,7 @@
     "exp.sycMeta": "Paso de los Toros, Uruguay · Jul 2022 – Mar 2023",
     "exp.sycBody":
       "Daily transport of UPM workers, coordinating routes and schedules. A role that strengthened my responsibility, organization and communication with diverse teams.",
-    "exp.ortTitle": "BSc in Computer Systems – ORT",
+    "exp.ortTitle": "Bachelor's in Computer Systems – ORT",
     "exp.ortMeta": "Montevideo, Uruguay · 2023 – 2027 (estimated)",
     "exp.ortBody":
       "Advanced student (3rd year). Taking courses in programming, software architecture, databases, requirements engineering and development methodologies.",
