@@ -34,7 +34,6 @@
     "nav.projects": "projects",
     "nav.contact": "contact",
 
-    "hero.pill": "Salesforce Trainee at TCS · CambiaLa in production",
     "hero.loc": "Montevideo, Uruguay · Native Spanish · English B2",
     "hero.greeting": "Hi, I'm",
     "hero.subtitle":
