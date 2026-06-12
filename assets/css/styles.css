@@ -462,6 +462,8 @@ header.nav-scrolled {
   color: var(--text-mut);
 }
 .about-highlight strong { color: var(--text); font-weight: 600; }
+.about-highlight a { transition: color 0.2s ease; }
+.about-highlight a:hover, .about-highlight a:hover strong { color: var(--accent); }
 
 /* Card lateral con foto + datos */
 .profile-card {

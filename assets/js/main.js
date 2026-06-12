@@ -47,13 +47,13 @@
     "about.p1":
       "I'm a 3rd-year student of the Bachelor's in Computer Systems at Universidad ORT and a Salesforce Trainee at <strong>Tata Consultancy Services</strong>. But what defines me best is what I build outside of work.",
     "about.p2":
-      "I shipped <strong>CambiaLa</strong> (<a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">cambiala.uy</a>), a sticker-trading app for the 2026 World Cup — Next.js, TypeScript, Supabase, Prisma, deployed on Vercel — where the product, architecture and scope decisions were mine. Before that, a Telegram bot that logs expenses from a photo of the receipt using the Claude API; the repo is public and the post about it passed 35,000 impressions.",
+      "I shipped <strong>CambiaLa</strong> (<a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">cambiala.uy</a>), a sticker-trading app for the 2026 World Cup — Next.js, TypeScript, Supabase, Prisma, deployed on Vercel — where the product, architecture and scope decisions were mine. Before that, a Telegram bot that logs expenses from a photo of the receipt using the Claude API; the repo is public.",
     "about.p3":
       "My daily foundation is backend: C#, .NET 8, SQL, REST APIs, TDD, GitFlow and CI with GitHub Actions. I use AI tools to move faster — the product and architecture decisions are still mine.",
     "about.p4":
       "That's the constant across my projects: finding a real problem, deciding what to build (and what not to), and shipping it. If you're building something where that helps, write me: <a href=\"mailto:gcabrera3210@gmail.com\">gcabrera3210@gmail.com</a>",
     "about.hl1": "🎓 <strong>Bachelor's in Computer Systems</strong> · ORT · 3rd year",
-    "about.hl2": "🚀 <strong>CambiaLa</strong> · in production",
+    "about.hl2": "🚀 <a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\"><strong>CambiaLa</strong></a>",
     "about.hl3": "💼 Salesforce Trainee · TCS",
     "about.hl4": "🛠️ TDD · GitFlow · CI",
 
@@ -113,7 +113,7 @@
     "proj.trbDecisions":
       "Telegram over WhatsApp (free API vs. paid), Notion as a visual database anyone can duplicate, ~$0.003 per receipt.",
     "proj.trbResult":
-      "In daily use. The post passed 35,000 impressions and the repo is public with a replicable template.",
+      "In daily use. The repo is public with a replicable template.",
     "proj.trbLinkedin": "LinkedIn post →",
     "proj.taskProblem":
       "Project and task management with permissions and relational persistence (academic project, ORT).",
