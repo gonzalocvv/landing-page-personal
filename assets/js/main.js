@@ -1,6 +1,6 @@
 /* ============================================================
    Gonzalo Cabrera — Portfolio
-   Interacciones: tema, idioma (ES/EN), nav, fade-in, typewriter,
+   Interacciones: tema, idioma (ES/EN), nav, typewriter,
    skills, formulario.
    ============================================================ */
 
@@ -34,28 +34,28 @@
     "nav.projects": "projects",
     "nav.contact": "contact",
 
-    "hero.pill": "Intern at Tata Consultancy Services",
+    "hero.pill": "Salesforce Trainee at TCS · CambiaLa in production",
     "hero.loc": "Montevideo, Uruguay · Native Spanish · English B2",
     "hero.greeting": "Hi, I'm",
     "hero.subtitle":
-      "Software Developer focused on backend. I work with C#, .NET 8 and SQL, and I'm gaining experience with Salesforce (Apex) during my internship at TCS.",
+      "Backend developer who ships complete products. I work with C#, .NET 8 and SQL; my latest launch is CambiaLa (cambiala.uy), built with Next.js, TypeScript and Supabase. Currently in the Salesforce ecosystem (Apex) at TCS.",
     "hero.viewProjects": "View projects",
     "hero.downloadCV": "Download CV",
 
     "about.eyebrow": "about",
-    "about.title": "Backend-focused developer",
+    "about.title": "From real problem to deploy",
     "about.p1":
-      "I'm an advanced student (3rd year) of the Bachelor's in Computer Systems at Universidad ORT, with a solid foundation in object-oriented programming (C#, Java) and data structures.",
+      "I'm a 3rd-year student of the Bachelor's in Computer Systems at Universidad ORT and a Salesforce Trainee at <strong>Tata Consultancy Services</strong>. But what defines me best is what I build outside of work.",
     "about.p2":
-      "I currently work as an intern at <strong>Tata Consultancy Services</strong>, where I'm gaining experience in the Salesforce ecosystem developing with Apex, while continuing to strengthen my backend foundation with C#, .NET 8 and SQL.",
+      "I shipped <strong>CambiaLa</strong> (<a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">cambiala.uy</a>), a sticker-trading app for the 2026 World Cup — Next.js, TypeScript, Supabase, Prisma, deployed on Vercel — where the product, architecture and scope decisions were mine. Before that, a Telegram bot that logs expenses from a photo of the receipt using the Claude API; the repo is public and the post about it passed 35,000 impressions.",
     "about.p3":
-      "I apply TDD on .NET 8 to write clean, maintainable code, work with Git following a GitFlow workflow, and use GitHub Actions for continuous integration, with an eye on algorithmic efficiency and performance.",
+      "My daily foundation is backend: C#, .NET 8, SQL, REST APIs, TDD, GitFlow and CI with GitHub Actions. I use AI tools to move faster — the product and architecture decisions are still mine.",
     "about.p4":
-      "I bring AI tools (Claude, GitHub Copilot) into my workflow to speed up prototyping and refactor with assistance, always keeping a critical eye on the quality of the result.",
+      "That's the constant across my projects: finding a real problem, deciding what to build (and what not to), and shipping it. If you're building something where that helps, write me: <a href=\"mailto:gcabrera3210@gmail.com\">gcabrera3210@gmail.com</a>",
     "about.hl1": "🎓 <strong>Bachelor's in Computer Systems</strong> · ORT · 3rd year",
-    "about.hl2": "💼 <strong>Intern</strong> at TCS · Salesforce",
-    "about.hl3": "🧠 Backend · OOP · SQL",
-    "about.hl4": "🛠️ Git · GitHub Actions · TDD",
+    "about.hl2": "🚀 <strong>CambiaLa</strong> · in production",
+    "about.hl3": "💼 Salesforce Trainee · TCS",
+    "about.hl4": "🛠️ TDD · GitFlow · CI",
 
     "skills.eyebrow": "skills",
     "skills.title": "Tech stack",
@@ -66,13 +66,11 @@
     "skills.g2Small": ".NET, Salesforce and web environments",
     "skills.g3Title": "Tools & practices",
     "skills.g3Small": "A modern, quality-oriented workflow",
-    "skills.g4Title": "Databases & languages",
-    "skills.g4Small": "Data + communication",
-    "skills.spanish": "Spanish (native)",
-    "skills.english": "English B2 (FCE)",
+    "skills.g4Title": "Databases",
+    "skills.g4Small": "Modeling, queries and data services",
     "skills.panelTitle": "// detail",
     "skills.panelDefault": "<strong>Hover or tap a skill</strong> to see how I use it in real projects.",
-    "skills.panelFooter": "Each technology connects to a project: e.g. .NET 8 + SQL + TDD in TaskTrackPro.",
+    "skills.panelFooter": "Each technology connects to a project: e.g. Next.js + TypeScript + Supabase in CambiaLa.",
 
     "exp.eyebrow": "background",
     "exp.title": "Experience & education",
@@ -98,17 +96,30 @@
 
     "proj.eyebrow": "projects",
     "proj.title": "What I've been building",
-    "proj.lead": "A selection of academic and personal projects where I put the stack to work.",
-    "proj.trbDesc":
-      "Telegram bot that processes receipt photos with AI: it extracts merchant, date and items, and saves them automatically to Notion. It also logs expenses and income via text.",
+    "proj.lead": "Problem, decisions and outcome: how I approach every project.",
+    "proj.problem": "Problem",
+    "proj.decisions": "Decisions",
+    "proj.result": "Outcome",
+    "proj.cambProblem":
+      "Once you've traded stickers with everyone you know, the only option left is buying more packs. No app connected you with collectors near you.",
+    "proj.cambDecisions":
+      "Strict MVP (deciding what to leave out), data model first, proximity-based matching, chat and review-based reputation.",
+    "proj.cambResult":
+      "In production with its own domain and SEO from day one. An end-to-end product: from idea to deploy.",
+    "proj.cambTry": "Try it →",
+    "proj.cambLinkedin": "LinkedIn post →",
+    "proj.trbProblem":
+      "Logging expenses by hand has too much friction; existing apps are paid or require manual entry.",
+    "proj.trbDecisions":
+      "Telegram over WhatsApp (free API vs. paid), Notion as a visual database anyone can duplicate, ~$0.003 per receipt.",
+    "proj.trbResult":
+      "In daily use. The post passed 35,000 impressions and the repo is public with a replicable template.",
     "proj.trbLinkedin": "LinkedIn post →",
-    "proj.cambBadge": "in progress · private repo",
-    "proj.cambDesc":
-      "A platform to find sticker-swap matches. Designed and built by me end to end —frontend, backend and deploy—.",
-    "proj.cambDemo": "Try the demo →",
-    "proj.taskDesc":
-      "App for managing projects and tasks, built with a focus on TDD, GitFlow, CI with GitHub Actions and relational database persistence.",
-    "proj.taskGithub": "View on GitHub →",
+    "proj.taskProblem":
+      "Project and task management with permissions and relational persistence (academic project, ORT).",
+    "proj.taskDecisions": "TDD from the first commit, GitFlow and CI with GitHub Actions.",
+    "proj.taskResult": "Full test suite and a CI pipeline.",
+    "proj.taskGithub": "View repo →",
 
     "contact.eyebrow": "contact",
     "contact.title": "Let's talk",
@@ -125,7 +136,7 @@
 
     "meta.title": "Gonzalo Cabrera — Software Developer",
     "meta.description":
-      "Gonzalo Cabrera — backend-focused Software Developer. Intern at Tata Consultancy Services. C#, .NET 8, SQL and Apex (Salesforce). Montevideo, Uruguay."
+      "Gonzalo Cabrera — backend developer who ships complete products. Creator of CambiaLa (cambiala.uy). C#, .NET 8, SQL · Next.js, TypeScript, Supabase. Salesforce (Apex) at TCS. Montevideo, Uruguay."
   };
 
   // Captura del español desde el DOM + cabecera.
@@ -236,27 +247,6 @@
   }
 
   /* ============================================================
-     Fade-in con IntersectionObserver
-     ============================================================ */
-  const fadeEls = document.querySelectorAll(".fade-in");
-  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-    fadeEls.forEach((el) => el.classList.add("visible"));
-  } else {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    fadeEls.forEach((el) => observer.observe(el));
-  }
-
-  /* ============================================================
      Typewriter de la terminal (consciente del idioma)
      Cada segmento referencia una clase .syn-* (los colores los
      define el CSS por tema).
@@ -267,18 +257,18 @@
 
   function buildCode(lang) {
     const k = lang === "en"
-      ? { role: "role", company: "company", stack: "stack", focus: "focus", learning: "learning" }
-      : { role: "rol", company: "empresa", stack: "stack", focus: "enfoque", learning: "aprendiendo" };
+      ? { role: "role", company: "company", stack: "stack", focus: "focus", shipped: "shipped" }
+      : { role: "rol", company: "empresa", stack: "stack", focus: "enfoque", shipped: "lanzado" };
     return [
       { t: "const ", c: COL.kw }, { t: "gonzalo", c: COL.name }, { t: " = {\n", c: COL.punc },
       { t: "  " + k.role, c: COL.key }, { t: ": [\n", c: COL.punc },
       { t: '    "Software Developer"', c: COL.str }, { t: ",\n", c: COL.punc },
-      { t: '    "Salesforce Developer"', c: COL.str }, { t: "\n", c: COL.punc },
+      { t: '    "Salesforce Trainee"', c: COL.str }, { t: "\n", c: COL.punc },
       { t: "  ],\n", c: COL.punc },
       { t: "  " + k.company, c: COL.key }, { t: ": ", c: COL.punc }, { t: '"TCS"', c: COL.str }, { t: ",\n", c: COL.punc },
       { t: "  " + k.stack, c: COL.key }, { t: ": ", c: COL.punc }, { t: '[".NET 8", "SQL", "Apex"]', c: COL.str }, { t: ",\n", c: COL.punc },
       { t: "  " + k.focus, c: COL.key }, { t: ": ", c: COL.punc }, { t: '"backend"', c: COL.str }, { t: ",\n", c: COL.punc },
-      { t: "  " + k.learning, c: COL.key }, { t: ": ", c: COL.punc }, { t: "true", c: COL.bool }, { t: "\n", c: COL.punc },
+      { t: "  " + k.shipped, c: COL.key }, { t: ": ", c: COL.punc }, { t: '"cambiala.uy"', c: COL.str }, { t: "\n", c: COL.punc },
       { t: "};", c: COL.punc }
     ];
   }
@@ -329,15 +319,14 @@
   const skillDescriptions = {
     es: {
       csharp: "mi lenguaje principal en backend. Desarrollo con .NET 8 y Blazor aplicando TDD y buenas prácticas para construir APIs y aplicaciones web.",
-      apex: "lenguaje de Salesforce que uso en mi pasantía en TCS para desarrollar lógica de negocio sobre la plataforma.",
+      ts: "el lenguaje de CambiaLa de punta a punta: tipado estático del modelo de datos a los componentes.",
+      apex: "lenguaje de Salesforce que uso como Trainee en TCS para desarrollar lógica de negocio sobre la plataforma.",
       java: "base sólida para OOP y backend. Proyectos académicos con énfasis en diseño de clases, patrones y testing.",
-      c: "implementación de estructuras de datos y algoritmos, con foco en complejidad y rendimiento.",
       js: "interactividad en front-end, validación de formularios y manejo del DOM sin frameworks pesados (como este sitio).",
-      bash: "scripts para automatizar tareas de desarrollo, compilación y manejo de entornos.",
       dotnet: "APIs modernas, código limpio y pruebas automatizadas sobre backends.",
+      nextjs: "el framework con el que construí y publiqué CambiaLa (cambiala.uy): App Router, SSR y SEO desde el día uno.",
       salesforce: "desarrollo sobre la plataforma con Apex en un entorno profesional, siguiendo sus buenas prácticas.",
       blazor: "interfaces web reactivas en C#, integradas con APIs y componentes reutilizables.",
-      bootstrap: "maquetado responsive rápido y coherente en proyectos web académicos y personales.",
       jest: "pruebas automatizadas para componentes y lógica de front-end, asegurando estabilidad al refactorizar.",
       git: "ramas claras para features, releases y hotfixes, con buenas prácticas de versionado.",
       gha: "pipelines para ejecutar tests y validaciones automáticamente en cada push.",
@@ -345,21 +334,19 @@
       tdd: "enfoque red-green-refactor en proyectos .NET, priorizando diseño claro y mantenible.",
       agile: "trabajo iterativo, feedback frecuente y priorización por valor de negocio.",
       sql: "modelado de datos, diseño de esquemas y consultas optimizadas.",
-      mongo: "trabajo con documentos y colecciones para datos semiestructurados.",
-      spanish: "nativo, ideal para comunicación fluida con equipos y clientes en Latinoamérica.",
-      english: "lectura cómoda de documentación técnica y comunicación en equipos internacionales."
+      supabase: "Postgres administrado + auth + storage: la base de datos y la autenticación de CambiaLa.",
+      mongo: "trabajo con documentos y colecciones para datos semiestructurados."
     },
     en: {
       csharp: "my main backend language. I build with .NET 8 and Blazor, applying TDD and best practices to create APIs and web apps.",
-      apex: "Salesforce's language, which I use in my internship at TCS to build business logic on the platform.",
+      ts: "CambiaLa's language end to end: static typing from the data model to the components.",
+      apex: "Salesforce's language, which I use as a Trainee at TCS to build business logic on the platform.",
       java: "a solid base for OOP and backend. Academic projects focused on class design, patterns and testing.",
-      c: "implementing data structures and algorithms, with a focus on complexity and performance.",
       js: "front-end interactivity, form validation and DOM handling without heavy frameworks (like this site).",
-      bash: "scripts to automate development, builds and environment management.",
       dotnet: "modern APIs, clean code and automated tests on backends.",
+      nextjs: "the framework I used to build and ship CambiaLa (cambiala.uy): App Router, SSR and SEO from day one.",
       salesforce: "building on the platform with Apex in a professional environment, following its best practices.",
       blazor: "reactive web UIs in C#, integrated with APIs and reusable components.",
-      bootstrap: "fast, consistent responsive layouts in academic and personal web projects.",
       jest: "automated tests for front-end components and logic, keeping things stable when refactoring.",
       git: "clear branches for features, releases and hotfixes, with solid versioning practices.",
       gha: "pipelines that run tests and checks automatically on every push.",
@@ -367,9 +354,8 @@
       tdd: "a red-green-refactor approach on .NET projects, prioritizing clear, maintainable design.",
       agile: "iterative work, frequent feedback and value-based prioritization.",
       sql: "data modeling, schema design and optimized queries.",
-      mongo: "working with documents and collections for semi-structured data.",
-      spanish: "native, ideal for fluent communication with teams and clients in Latin America.",
-      english: "comfortable reading technical documentation and communicating with international teams."
+      supabase: "managed Postgres + auth + storage: CambiaLa's database and authentication.",
+      mongo: "working with documents and collections for semi-structured data."
     }
   };
 

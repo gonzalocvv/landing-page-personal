@@ -21,13 +21,13 @@
 
   <title>Gonzalo Cabrera — Software Developer</title>
 
-  <meta name="description" content="Gonzalo Cabrera — Software Developer enfocado en backend. Pasante en Tata Consultancy Services. C#, .NET 8, SQL y Apex (Salesforce). Montevideo, Uruguay." />
+  <meta name="description" content="Gonzalo Cabrera — Desarrollador backend que publica productos completos. Creador de CambiaLa (cambiala.uy). C#, .NET 8 y SQL · Next.js, TypeScript y Supabase. Salesforce (Apex) en TCS. Montevideo, Uruguay." />
   <meta name="author" content="Gonzalo Cabrera" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Gonzalo Cabrera — Software Developer" />
-  <meta property="og:description" content="Software Developer enfocado en backend. C#, .NET 8, SQL y Apex. Pasante en TCS." />
+  <meta property="og:description" content="Desarrollador backend que publica productos completos. Creador de CambiaLa (cambiala.uy). C#, .NET 8, SQL · Next.js, TypeScript, Supabase." />
   <meta property="og:locale" content="es_UY" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,6 +38,10 @@
 </head>
 
 <body>
+  <!-- FX: barra de progreso + grain -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
   <!-- Navbar -->
   <header id="top-header">
     <nav class="nav">
@@ -68,17 +72,18 @@
   <main>
     <!-- Hero -->
     <section id="inicio">
-      <div class="container hero fade-in">
+      <div class="container hero">
         <!-- Columna izquierda -->
         <div>
           <span class="pill">
-            <span class="dot"></span> <span data-i18n="hero.pill">Pasante en Tata Consultancy Services</span>
+            <span class="dot"></span> <span data-i18n="hero.pill">Salesforce Trainee en TCS · CambiaLa en producción</span>
           </span>
           <p class="hero-loc" data-i18n="hero.loc">Montevideo, Uruguay · Español nativo · Inglés B2</p>
           <h1 class="hero-title"><span data-i18n="hero.greeting">Hola, soy</span><br /><span class="accent">Gonzalo Cabrera</span></h1>
           <p class="hero-subtitle" data-i18n="hero.subtitle">
-            Software Developer enfocado en backend. Trabajo con C#, .NET 8 y SQL,
-            y sumo experiencia en Salesforce (Apex) en mi pasantía en TCS.
+            Desarrollador backend que publica productos completos. Trabajo con C#, .NET 8 y SQL;
+            lo último que lancé es CambiaLa (cambiala.uy) con Next.js, TypeScript y Supabase.
+            Hoy en el ecosistema Salesforce (Apex) en TCS.
           </p>
 
           <div class="hero-actions">
@@ -92,8 +97,9 @@
             <span class="tag-mono">C#</span>
             <span class="tag-mono">.NET 8</span>
             <span class="tag-mono">SQL</span>
+            <span class="tag-mono">TypeScript</span>
+            <span class="tag-mono">Next.js</span>
             <span class="tag-mono">Apex</span>
-            <span class="tag-mono">Git · TDD</span>
           </div>
         </div>
 
@@ -112,35 +118,40 @@
 
     <!-- Sobre mí -->
     <section id="sobre-mi">
-      <div class="container about-grid fade-in">
+      <div class="container about-grid">
         <div>
           <p class="section-subtitle" data-i18n="about.eyebrow">sobre mí</p>
-          <h2 data-i18n="about.title">Desarrollador con foco en backend</h2>
+          <h2 data-i18n="about.title">Del problema real al deploy</h2>
           <div class="about-text">
             <p data-i18n="about.p1">
-              Soy estudiante avanzado (3.º año) de la Licenciatura en Sistemas en la Universidad ORT,
-              con una base sólida en programación orientada a objetos (C#, Java) y estructuras de datos.
+              Soy estudiante de 3.º año de la Licenciatura en Sistemas en la Universidad ORT y
+              Salesforce Trainee en <strong>Tata Consultancy Services</strong>. Pero lo que mejor
+              me define es lo que construyo fuera del trabajo.
             </p>
             <p data-i18n="about.p2">
-              Actualmente trabajo como pasante en <strong>Tata Consultancy Services</strong>, donde sumo
-              experiencia en el ecosistema Salesforce desarrollando con Apex, mientras sigo fortaleciendo
-              mi base en backend con C#, .NET 8 y SQL.
+              Publiqué <strong>CambiaLa</strong> (<a href="https://cambiala.uy" target="_blank" rel="noreferrer">cambiala.uy</a>),
+              una app de intercambio de figuritas del Mundial 2026 — Next.js, TypeScript, Supabase,
+              Prisma, deploy en Vercel — donde las decisiones de producto, arquitectura y alcance
+              fueron mías. Antes, un bot de Telegram que registra gastos a partir de la foto del
+              ticket usando la API de Claude; el repo es público y el post sobre el proyecto superó
+              las 35.000 impresiones.
             </p>
             <p data-i18n="about.p3">
-              Aplico TDD sobre .NET 8 para escribir código limpio y mantenible, trabajo con Git siguiendo
-              un flujo GitFlow y uso GitHub Actions para integración continua, prestando atención a la
-              eficiencia algorítmica y al rendimiento.
+              Mi base diaria es backend: C#, .NET 8, SQL, APIs REST, TDD, GitFlow y CI con GitHub
+              Actions. Uso herramientas de IA para avanzar más rápido — las decisiones de producto
+              y arquitectura siguen siendo mías.
             </p>
             <p data-i18n="about.p4">
-              Integro herramientas de IA (Claude, GitHub Copilot) en mi flujo para acelerar prototipos y
-              refactorizar de forma asistida, manteniendo siempre una mirada crítica sobre la calidad del resultado.
+              Esa es la constante en mis proyectos: encontrar un problema real, decidir qué construir
+              (y qué no) y publicarlo. Si estás armando algo donde eso sume, escribime:
+              <a href="mailto:gcabrera3210@gmail.com">gcabrera3210@gmail.com</a>
             </p>
           </div>
           <div class="about-highlight">
             <span data-i18n="about.hl1">🎓 <strong>Lic. en Sistemas</strong> · ORT · 3.º año</span>
-            <span data-i18n="about.hl2">💼 <strong>Pasante</strong> en TCS · Salesforce</span>
-            <span data-i18n="about.hl3">🧠 Backend · OOP · SQL</span>
-            <span data-i18n="about.hl4">🛠️ Git · GitHub Actions · TDD</span>
+            <span data-i18n="about.hl2">🚀 <strong>CambiaLa</strong> · en producción</span>
+            <span data-i18n="about.hl3">💼 Salesforce Trainee · TCS</span>
+            <span data-i18n="about.hl4">🛠️ TDD · GitFlow · CI</span>
           </div>
         </div>
 
@@ -161,7 +172,7 @@
 
     <!-- Skills -->
     <section id="skills">
-      <div class="container skills-layout fade-in">
+      <div class="container skills-layout">
         <div>
           <p class="section-subtitle" data-i18n="skills.eyebrow">skills</p>
           <h2 data-i18n="skills.title">Stack técnico</h2>
@@ -171,12 +182,11 @@
             <h3 data-i18n="skills.g1Title">Lenguajes</h3>
             <small data-i18n="skills.g1Small">Base fuerte en backend y estructuras de datos</small>
             <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="csharp"><span class="icon">#</span> C#</button>
-              <button class="skill-tag" type="button" data-skill="apex"><span class="icon">☁️</span> Apex</button>
-              <button class="skill-tag" type="button" data-skill="java"><span class="icon">☕</span> Java</button>
-              <button class="skill-tag" type="button" data-skill="c"><span class="icon">⚙️</span> C / C++</button>
-              <button class="skill-tag" type="button" data-skill="js"><span class="icon">🟨</span> JavaScript</button>
-              <button class="skill-tag" type="button" data-skill="bash"><span class="icon">💻</span> Bash</button>
+              <button class="skill-tag" type="button" data-skill="csharp">C#</button>
+              <button class="skill-tag" type="button" data-skill="ts">TypeScript</button>
+              <button class="skill-tag" type="button" data-skill="apex">Apex</button>
+              <button class="skill-tag" type="button" data-skill="java">Java</button>
+              <button class="skill-tag" type="button" data-skill="js">JavaScript</button>
             </div>
           </div>
 
@@ -184,11 +194,11 @@
             <h3 data-i18n="skills.g2Title">Frameworks &amp; plataformas</h3>
             <small data-i18n="skills.g2Small">Entornos .NET, Salesforce y web</small>
             <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="dotnet"><span class="icon">🧰</span> .NET 8</button>
-              <button class="skill-tag" type="button" data-skill="salesforce"><span class="icon">☁️</span> Salesforce</button>
-              <button class="skill-tag" type="button" data-skill="blazor"><span class="icon">🌐</span> Blazor</button>
-              <button class="skill-tag" type="button" data-skill="bootstrap"><span class="icon">📱</span> Bootstrap</button>
-              <button class="skill-tag" type="button" data-skill="jest"><span class="icon">🧪</span> Jest</button>
+              <button class="skill-tag" type="button" data-skill="dotnet">.NET 8</button>
+              <button class="skill-tag" type="button" data-skill="nextjs">Next.js</button>
+              <button class="skill-tag" type="button" data-skill="salesforce">Salesforce</button>
+              <button class="skill-tag" type="button" data-skill="blazor">Blazor</button>
+              <button class="skill-tag" type="button" data-skill="jest">Jest</button>
             </div>
           </div>
 
@@ -196,22 +206,21 @@
             <h3 data-i18n="skills.g3Title">Herramientas &amp; prácticas</h3>
             <small data-i18n="skills.g3Small">Flujo de trabajo moderno y orientado a calidad</small>
             <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="git"><span class="icon">🌱</span> Git · GitFlow</button>
-              <button class="skill-tag" type="button" data-skill="gha"><span class="icon">⚙️</span> GitHub Actions</button>
-              <button class="skill-tag" type="button" data-skill="docker"><span class="icon">🐳</span> Docker</button>
-              <button class="skill-tag" type="button" data-skill="tdd"><span class="icon">✅</span> TDD</button>
-              <button class="skill-tag" type="button" data-skill="agile"><span class="icon">🏃</span> Ágil</button>
+              <button class="skill-tag" type="button" data-skill="git">Git · GitFlow</button>
+              <button class="skill-tag" type="button" data-skill="gha">GitHub Actions</button>
+              <button class="skill-tag" type="button" data-skill="docker">Docker</button>
+              <button class="skill-tag" type="button" data-skill="tdd">TDD</button>
+              <button class="skill-tag" type="button" data-skill="agile">Ágil</button>
             </div>
           </div>
 
           <div class="skill-group">
-            <h3 data-i18n="skills.g4Title">Bases de datos &amp; idiomas</h3>
-            <small data-i18n="skills.g4Small">Datos + comunicación</small>
+            <h3 data-i18n="skills.g4Title">Bases de datos</h3>
+            <small data-i18n="skills.g4Small">Modelado, consultas y servicios de datos</small>
             <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="sql"><span class="icon">🗄️</span> SQL</button>
-              <button class="skill-tag" type="button" data-skill="mongo"><span class="icon">🍃</span> MongoDB</button>
-              <button class="skill-tag" type="button" data-skill="spanish"><span class="icon">🇺🇾</span> <span data-i18n="skills.spanish">Español (nativo)</span></button>
-              <button class="skill-tag" type="button" data-skill="english"><span class="icon">🇬🇧</span> <span data-i18n="skills.english">Inglés B2 (FCE)</span></button>
+              <button class="skill-tag" type="button" data-skill="sql">SQL</button>
+              <button class="skill-tag" type="button" data-skill="supabase">Supabase</button>
+              <button class="skill-tag" type="button" data-skill="mongo">MongoDB</button>
             </div>
           </div>
         </div>
@@ -222,7 +231,7 @@
             <strong>Pasá el mouse o tocá un skill</strong> para ver cómo lo uso en proyectos reales.
           </div>
           <div class="skills-panel-footer" id="skills-panel-footer" data-i18n="skills.panelFooter">
-            Cada tecnología conecta con un proyecto: por ejemplo .NET 8 + SQL + TDD en TaskTrackPro.
+            Cada tecnología conecta con un proyecto: por ejemplo Next.js + TypeScript + Supabase en CambiaLa.
           </div>
         </aside>
       </div>
@@ -230,7 +239,7 @@
 
     <!-- Experiencia y educación -->
     <section id="experiencia">
-      <div class="container fade-in">
+      <div class="container">
         <p class="section-subtitle" data-i18n="exp.eyebrow">trayectoria</p>
         <h2 data-i18n="exp.title">Experiencia &amp; educación</h2>
         <p class="section-lead" data-i18n="exp.lead">Dónde estoy creciendo como desarrollador y qué estudio en paralelo.</p>
@@ -282,53 +291,184 @@
 
     <!-- Proyectos -->
     <section id="proyectos">
-      <div class="container fade-in">
+      <div class="container">
         <p class="section-subtitle" data-i18n="proj.eyebrow">proyectos</p>
         <h2 data-i18n="proj.title">Lo que estuve construyendo</h2>
-        <p class="section-lead" data-i18n="proj.lead">Una selección de proyectos académicos y personales donde aplico el stack.</p>
+        <p class="section-lead" data-i18n="proj.lead">Problema, decisiones y resultado: así encaro cada proyecto.</p>
 
         <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-head">
-              <h3>TicketReceiptBot</h3>
-              <span class="project-icon">🧾</span>
+          <!-- CambiaLa (destacado) -->
+          <article class="project-card project-card--featured">
+            <div class="project-shot project-shot--cambiala">
+              <img src="assets/img/sccambiala.webp" alt="Captura de cambiala.uy: «Te encontramos con quién cambiar tus figuritas»" loading="lazy" />
             </div>
-            <span class="project-stack">Python · Claude API · Notion · Railway</span>
-            <p data-i18n="proj.trbDesc">
-              Bot de Telegram que procesa fotos de tickets con IA: extrae comercio, fecha y productos,
-              y los guarda automáticamente en Notion. También registra gastos e ingresos por texto.
-            </p>
-            <div class="project-links">
-              <a class="project-link" href="https://github.com/gonzalocvv/TicketReceiptBot" target="_blank" rel="noreferrer">GitHub →</a>
-              <a class="project-link" href="https://www.linkedin.com/posts/gonzalocabrera9_empezando-el-nuevo-semestre-quer%C3%ADa-saber-ugcPost-7448389935453388800-JPEp" target="_blank" rel="noreferrer" data-i18n="proj.trbLinkedin">Post en LinkedIn →</a>
+            <div class="project-info">
+              <div class="project-head">
+                <h3>CambiaLa</h3>
+                <a class="project-domain" href="https://cambiala.uy" target="_blank" rel="noreferrer">cambiala.uy</a>
+              </div>
+              <dl class="project-brief">
+                <div>
+                  <dt data-i18n="proj.problem">Problema</dt>
+                  <dd data-i18n="proj.cambProblem">Cuando ya cambiaste figuritas con todos tus conocidos, solo queda comprar más paquetes. Ninguna app te conectaba con coleccionistas cerca tuyo.</dd>
+                </div>
+                <div>
+                  <dt data-i18n="proj.decisions">Decisiones</dt>
+                  <dd data-i18n="proj.cambDecisions">MVP estricto (qué dejar afuera), modelo de datos primero, matching por cercanía, chat y reputación por reseñas.</dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd class="dd-stack">Next.js · TypeScript · Supabase · Prisma · Vercel · Inngest</dd>
+                </div>
+                <div>
+                  <dt data-i18n="proj.result">Resultado</dt>
+                  <dd data-i18n="proj.cambResult">En producción con dominio propio y SEO desde el día uno. Producto end-to-end: de la idea al deploy.</dd>
+                </div>
+              </dl>
+              <div class="project-links">
+                <a class="project-link" href="https://cambiala.uy" target="_blank" rel="noreferrer" data-i18n="proj.cambTry">Probala →</a>
+                <a class="project-link" href="https://www.linkedin.com/posts/gonzalocabrera9_desarrollo-ia-claude-share-7470829272517992448-fKOZ/" target="_blank" rel="noreferrer" data-i18n="proj.cambLinkedin">Post en LinkedIn →</a>
+              </div>
             </div>
           </article>
 
+          <!-- TicketReceiptBot -->
           <article class="project-card">
-            <div class="project-head">
-              <h3>Cambiala</h3>
-              <span class="project-icon">🔁</span>
+            <div class="project-shot project-shot--bot" aria-hidden="true">
+              <div class="shot-chat">
+                <div class="shot-msg shot-msg--user">📸 ticket-super.jpg</div>
+                <div class="shot-msg shot-msg--bot">✅ Guardado en Notion<br /><span>Supermercado · 11/06 · 3 ítems</span></div>
+              </div>
             </div>
-            <span class="project-stack">Next.js · Vercel · full-stack</span>
-            <span class="project-badge" data-i18n="proj.cambBadge">en desarrollo · repo privado</span>
-            <p data-i18n="proj.cambDesc">
-              Plataforma para encontrar matches de intercambio de figuritas. Diseñada y desarrollada
-              por mí end to end —frontend, backend y deploy—.
-            </p>
-            <a class="project-link" href="https://cambia-la.vercel.app/" target="_blank" rel="noreferrer" data-i18n="proj.cambDemo">Probar la demo →</a>
+            <div class="project-info">
+              <div class="project-head">
+                <h3>TicketReceiptBot</h3>
+                <span class="project-icon">🧾</span>
+              </div>
+              <dl class="project-brief">
+                <div>
+                  <dt data-i18n="proj.problem">Problema</dt>
+                  <dd data-i18n="proj.trbProblem">Registrar gastos a mano tiene demasiada fricción; las apps existentes son pagas o exigen carga manual.</dd>
+                </div>
+                <div>
+                  <dt data-i18n="proj.decisions">Decisiones</dt>
+                  <dd data-i18n="proj.trbDecisions">Telegram en vez de WhatsApp (API gratuita vs. paga), Notion como base visual que cualquiera duplica, costo ~$0.003 por ticket.</dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd class="dd-stack">Python · Claude API · Notion · Railway</dd>
+                </div>
+                <div>
+                  <dt data-i18n="proj.result">Resultado</dt>
+                  <dd data-i18n="proj.trbResult">En uso diario. El post superó las 35.000 impresiones y el repo es público con plantilla replicable.</dd>
+                </div>
+              </dl>
+              <div class="project-links">
+                <a class="project-link" href="https://github.com/gonzalocvv/TicketReceiptBot" target="_blank" rel="noreferrer">GitHub →</a>
+                <a class="project-link" href="https://www.linkedin.com/posts/gonzalocabrera9_empezando-el-nuevo-semestre-quer%C3%ADa-saber-ugcPost-7448389935453388800-JPEp" target="_blank" rel="noreferrer" data-i18n="proj.trbLinkedin">Post en LinkedIn →</a>
+              </div>
+            </div>
           </article>
 
+          <!-- TaskTrackPro -->
           <article class="project-card">
-            <div class="project-head">
-              <h3>TaskTrackPro</h3>
-              <span class="project-icon">📋</span>
+            <div class="project-shot project-shot--task" aria-hidden="true">
+              <svg class="shot-gantt" viewBox="0 0 480 252" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <!-- grilla de días -->
+                <g stroke="#222b3d" stroke-width="1">
+                  <line x1="58" y1="34" x2="58" y2="218" /><line x1="130" y1="34" x2="130" y2="218" />
+                  <line x1="202" y1="34" x2="202" y2="218" /><line x1="274" y1="34" x2="274" y2="218" />
+                  <line x1="346" y1="34" x2="346" y2="218" /><line x1="418" y1="34" x2="418" y2="218" />
+                </g>
+                <g font-family="JetBrains Mono, monospace" font-size="9" fill="#5b6573">
+                  <text x="58" y="26" text-anchor="middle">d0</text>
+                  <text x="130" y="26" text-anchor="middle">d2</text>
+                  <text x="202" y="26" text-anchor="middle">d4</text>
+                  <text x="274" y="26" text-anchor="middle">d6</text>
+                  <text x="346" y="26" text-anchor="middle">d8</text>
+                  <text x="418" y="26" text-anchor="middle">d10</text>
+                </g>
+
+                <!-- etiquetas de tareas -->
+                <g font-family="JetBrains Mono, monospace" font-size="10" fill="#8b96aa">
+                  <text x="44" y="56" text-anchor="end">T1</text>
+                  <text x="44" y="90" text-anchor="end">T2</text>
+                  <text x="44" y="124" text-anchor="end">T3</text>
+                  <text x="44" y="158" text-anchor="end">T4</text>
+                  <text x="44" y="192" text-anchor="end">T5</text>
+                </g>
+
+                <!-- T1: crítica, d0-d3 -->
+                <rect x="58" y="46" width="108" height="14" rx="4" fill="#fb7185" />
+                <!-- T2: crítica, d3-d7 -->
+                <rect x="166" y="80" width="144" height="14" rx="4" fill="#fb7185" />
+                <!-- T3: d3-d5 + holgura hasta d7 -->
+                <rect x="166" y="114" width="72" height="14" rx="4" fill="#818cf8" />
+                <rect x="238" y="114" width="72" height="14" rx="4" fill="none" stroke="#5b6573" stroke-dasharray="4 3" />
+                <text x="246" y="125" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#5b6573">holgura 2d</text>
+                <!-- T4: crítica, d7-d10 -->
+                <rect x="310" y="148" width="108" height="14" rx="4" fill="#fb7185" />
+                <!-- T5: d5-d8 + holgura hasta d10 -->
+                <rect x="238" y="182" width="108" height="14" rx="4" fill="#818cf8" />
+                <rect x="346" y="182" width="72" height="14" rx="4" fill="none" stroke="#5b6573" stroke-dasharray="4 3" />
+                <text x="354" y="193" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#5b6573">holgura 2d</text>
+
+                <!-- dependencias (camino crítico en rosa) -->
+                <defs>
+                  <marker id="arr-c" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0 L8,4 L0,8 z" fill="#fb7185" />
+                  </marker>
+                  <marker id="arr-n" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0 L8,4 L0,8 z" fill="#5b6573" />
+                  </marker>
+                </defs>
+                <!-- T1 → T2 (crítica) -->
+                <path d="M166 53 L166 73 L166 80" fill="none" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arr-c)" />
+                <!-- T1 → T3 -->
+                <path d="M160 60 L160 121 L164 121" fill="none" stroke="#5b6573" stroke-width="1.2" marker-end="url(#arr-n)" />
+                <!-- T2 → T4 (crítica) -->
+                <path d="M310 87 L310 141 L310 148" fill="none" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arr-c)" />
+                <!-- T3 → T5 -->
+                <path d="M238 128 L232 128 L232 189 L236 189" fill="none" stroke="#5b6573" stroke-width="1.2" marker-end="url(#arr-n)" />
+
+                <!-- leyenda -->
+                <g font-family="JetBrains Mono, monospace" font-size="9">
+                  <rect x="58" y="230" width="16" height="9" rx="3" fill="#fb7185" />
+                  <text x="80" y="238" fill="#8b96aa">camino crítico</text>
+                  <rect x="180" y="230" width="16" height="9" rx="3" fill="#818cf8" />
+                  <text x="202" y="238" fill="#8b96aa">tarea</text>
+                  <rect x="252" y="230" width="16" height="9" rx="3" fill="none" stroke="#5b6573" stroke-dasharray="4 3" />
+                  <text x="274" y="238" fill="#8b96aa">holgura</text>
+                </g>
+              </svg>
             </div>
-            <span class="project-stack">.NET 8 · Blazor · SQL · TDD</span>
-            <p data-i18n="proj.taskDesc">
-              Aplicación para gestión de proyectos y tareas, desarrollada con enfoque en TDD, GitFlow,
-              CI con GitHub Actions y persistencia en base de datos relacional.
-            </p>
-            <a class="project-link" href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer" data-i18n="proj.taskGithub">Ver en GitHub →</a>
+            <div class="project-info">
+              <div class="project-head">
+                <h3>TaskTrackPro</h3>
+                <span class="project-icon">📋</span>
+              </div>
+              <dl class="project-brief">
+                <div>
+                  <dt data-i18n="proj.problem">Problema</dt>
+                  <dd data-i18n="proj.taskProblem">Gestión de proyectos y tareas con permisos y persistencia relacional (proyecto académico, ORT).</dd>
+                </div>
+                <div>
+                  <dt data-i18n="proj.decisions">Decisiones</dt>
+                  <dd data-i18n="proj.taskDecisions">TDD desde el primer commit, GitFlow y CI con GitHub Actions.</dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd class="dd-stack">.NET 8 · Blazor · SQL</dd>
+                </div>
+                <div>
+                  <dt data-i18n="proj.result">Resultado</dt>
+                  <dd data-i18n="proj.taskResult">Suite de tests completa y pipeline de CI.</dd>
+                </div>
+              </dl>
+              <div class="project-links">
+                <a class="project-link" href="https://github.com/gonzalocvv/TaskTrackPro" target="_blank" rel="noreferrer" data-i18n="proj.taskGithub">Ver repo →</a>
+              </div>
+            </div>
           </article>
         </div>
       </div>
@@ -336,7 +476,7 @@
 
     <!-- Contacto -->
     <section id="contacto">
-      <div class="container contact-layout fade-in">
+      <div class="container contact-layout">
         <div>
           <p class="section-subtitle" data-i18n="contact.eyebrow">contacto</p>
           <h2 data-i18n="contact.title">¿Hablamos?</h2>
@@ -400,5 +540,12 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+
+  <!-- FX: GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <script src="assets/js/effects.js"></script>
+  <script src="assets/js/hero-particles.js"></script>
 </body>
 </html>
