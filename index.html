@@ -6,47 +6,43 @@
 
   <!-- Tema: setea claro/oscuro antes del primer paint para evitar el flash -->
   <script>
+    // La intro de la laptop necesita arrancar desde arriba: desactivamos la
+    // restauración de scroll del browser antes de que ocurra (si no, un reload
+    // a media página rompería el pin/zoom de la intro).
+    try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
     (function () {
       try {
         var t = localStorage.getItem("gc-theme");
         if (t !== "light" && t !== "dark") {
-          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
         document.documentElement.setAttribute("data-theme", t);
-      } catch (e) {
-        document.documentElement.setAttribute("data-theme", "dark");
-      }
+      } catch (e) { document.documentElement.setAttribute("data-theme", "light"); }
+      document.documentElement.classList.add("js");
     })();
   </script>
 
   <title>Gonzalo Cabrera — Software Developer</title>
-
   <meta name="description" content="Gonzalo Cabrera — Desarrollador backend que publica productos completos. Creador de CambiaLa (cambiala.uy). C#, .NET 8 y SQL · Next.js, TypeScript y Supabase. Salesforce (Apex) en TCS. Montevideo, Uruguay." />
   <meta name="author" content="Gonzalo Cabrera" />
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Gonzalo Cabrera — Software Developer" />
-  <meta property="og:description" content="Desarrollador backend que publica productos completos. Creador de CambiaLa (cambiala.uy). C#, .NET 8, SQL · Next.js, TypeScript, Supabase." />
+  <meta property="og:description" content="Desarrollador backend que publica productos completos. Creador de CambiaLa." />
   <meta property="og:locale" content="es_UY" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
 <body>
-  <!-- FX: barra de progreso + grain -->
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- Navbar -->
-  <header id="top-header">
-    <nav class="nav">
+  <!-- ============ NAV ============ -->
+  <header class="site-header">
+    <div class="container nav">
       <a class="nav-logo" href="#inicio">GC <span>// dev</span></a>
-      <div class="nav-actions">
+      <div class="nav-right">
         <ul class="nav-links">
           <li><a href="#sobre-mi" data-i18n="nav.about">sobre mí</a></li>
           <li><a href="#skills" data-i18n="nav.skills">skills</a></li>
@@ -54,494 +50,268 @@
           <li><a href="#proyectos" data-i18n="nav.projects">proyectos</a></li>
           <li><a href="#contacto" data-i18n="nav.contact">contacto</a></li>
         </ul>
-        <button class="lang-toggle" type="button" aria-label="Switch to English">EN</button>
-        <button class="theme-toggle" type="button" aria-label="Cambiar a modo claro" title="Cambiar tema">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-          </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
-        <button class="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">☰</button>
+        <div class="nav-tools">
+          <button id="lang-toggle" class="btn-ghost" type="button" aria-label="Switch language">EN</button>
+          <button id="theme-toggle" class="btn-ghost" type="button" aria-label="Cambiar tema">☾</button>
+        </div>
       </div>
-    </nav>
+    </div>
   </header>
 
-  <main>
-    <!-- Hero -->
-    <section id="inicio">
-      <div class="container hero">
-        <!-- Columna izquierda -->
-        <div>
-          <p class="hero-loc" data-i18n="hero.loc">Montevideo, Uruguay · Español nativo · Inglés B2</p>
-          <h1 class="hero-title"><span data-i18n="hero.greeting">Hola, soy</span><br /><span class="accent">Gonzalo Cabrera</span></h1>
-          <p class="hero-subtitle" data-i18n="hero.subtitle">
-            Desarrollador backend que publica productos completos. Trabajo con C#, .NET 8 y SQL;
-            lo último que lancé es CambiaLa (cambiala.uy) con Next.js, TypeScript y Supabase.
-            Hoy en el ecosistema Salesforce (Apex) en TCS.
-          </p>
+  <!-- ============ HERO + INTRO LAPTOP ============ -->
+  <section id="inicio" class="hero">
+    <div class="intro-stage" id="introStage">
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#proyectos" data-i18n="hero.viewProjects">Ver proyectos</a>
-            <a class="btn btn-outline" href="assets/cv/Cabrera_Viera_Gonzalo_CV.pdf" target="_blank" rel="noreferrer" data-i18n="hero.downloadCV">
-              Descargar CV
-            </a>
-          </div>
-
-          <div class="hero-tags">
-            <span class="tag-mono">C#</span>
-            <span class="tag-mono">.NET 8</span>
-            <span class="tag-mono">SQL</span>
-            <span class="tag-mono">TypeScript</span>
-            <span class="tag-mono">Next.js</span>
-            <span class="tag-mono">Apex</span>
-          </div>
-        </div>
-
-        <!-- Columna derecha: terminal con typewriter -->
-        <div class="term">
-          <div class="term-bar">
-            <span class="d" style="background:#ff5f57"></span>
-            <span class="d" style="background:#febc2e"></span>
-            <span class="d" style="background:#28c840"></span>
-            <span class="term-file">gonzalo.ts</span>
-          </div>
-          <div class="term-code" id="term-code" aria-label="Snippet de presentación de Gonzalo Cabrera"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sobre mí -->
-    <section id="sobre-mi">
-      <div class="container about-grid">
-        <div>
-          <p class="section-subtitle" data-i18n="about.eyebrow">sobre mí</p>
-          <h2 data-i18n="about.title">Del problema real al deploy</h2>
-          <div class="about-text">
-            <p data-i18n="about.p1">
-              Soy estudiante de 3.º año de la Licenciatura en Sistemas en la Universidad ORT y
-              Salesforce Trainee en <strong>Tata Consultancy Services</strong>. Pero lo que mejor
-              me define es lo que construyo fuera del trabajo.
-            </p>
-            <p data-i18n="about.p2">
-              Publiqué <strong>CambiaLa</strong> (<a href="https://cambiala.uy" target="_blank" rel="noreferrer">cambiala.uy</a>),
-              una app de intercambio de figuritas del Mundial 2026 — Next.js, TypeScript, Supabase,
-              Prisma, deploy en Vercel — donde las decisiones de producto, arquitectura y alcance
-              fueron mías. Antes, un bot de Telegram que registra gastos a partir de la foto del
-              ticket usando la API de Claude; el repo es público.
-            </p>
-            <p data-i18n="about.p3">
-              Mi base diaria es backend: C#, .NET 8, SQL, APIs REST, TDD, GitFlow y CI con GitHub
-              Actions. Uso herramientas de IA para avanzar más rápido — las decisiones de producto
-              y arquitectura siguen siendo mías.
-            </p>
-            <p data-i18n="about.p4">
-              Esa es la constante en mis proyectos: encontrar un problema real, decidir qué construir
-              (y qué no) y publicarlo. Si estás armando algo donde eso sume, escribime:
-              <a href="mailto:gcabrera3210@gmail.com">gcabrera3210@gmail.com</a>
-            </p>
-          </div>
-          <div class="about-highlight">
-            <span data-i18n="about.hl1">🎓 <strong>Lic. en Sistemas</strong> · ORT · 3.º año</span>
-            <span data-i18n="about.hl2">🚀 <a href="https://cambiala.uy" target="_blank" rel="noreferrer"><strong>CambiaLa</strong></a></span>
-            <span data-i18n="about.hl3">💼 Salesforce Trainee · TCS</span>
-            <span data-i18n="about.hl4">🛠️ TDD · GitFlow · CI</span>
-          </div>
-        </div>
-
-        <aside class="profile-card">
-          <div class="profile-photo">
-            <img src="assets/img/selfie.JPG" alt="Foto de Gonzalo Cabrera" />
-          </div>
-          <p class="profile-name">Gonzalo Cabrera</p>
-          <p class="profile-role">Software Developer · backend</p>
-          <div class="profile-links">
-            <a class="pill-link" href="https://linkedin.com/in/gonzalocabrera9" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="pill-link" href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">GitHub</a>
-            <a class="pill-link" href="mailto:gcabrera3210@gmail.com">Email</a>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-      <div class="container skills-layout">
-        <div>
-          <p class="section-subtitle" data-i18n="skills.eyebrow">skills</p>
-          <h2 data-i18n="skills.title">Stack técnico</h2>
-          <p class="section-lead" data-i18n="skills.lead">Las tecnologías con las que trabajo a diario y las que estoy sumando en mi pasantía.</p>
-
-          <div class="skill-group">
-            <h3 data-i18n="skills.g1Title">Lenguajes</h3>
-            <small data-i18n="skills.g1Small">Base fuerte en backend y estructuras de datos</small>
-            <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="csharp">C#</button>
-              <button class="skill-tag" type="button" data-skill="ts">TypeScript</button>
-              <button class="skill-tag" type="button" data-skill="apex">Apex</button>
-              <button class="skill-tag" type="button" data-skill="java">Java</button>
-              <button class="skill-tag" type="button" data-skill="js">JavaScript</button>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <h3 data-i18n="skills.g2Title">Frameworks &amp; plataformas</h3>
-            <small data-i18n="skills.g2Small">Entornos .NET, Salesforce y web</small>
-            <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="dotnet">.NET 8</button>
-              <button class="skill-tag" type="button" data-skill="nextjs">Next.js</button>
-              <button class="skill-tag" type="button" data-skill="salesforce">Salesforce</button>
-              <button class="skill-tag" type="button" data-skill="blazor">Blazor</button>
-              <button class="skill-tag" type="button" data-skill="jest">Jest</button>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <h3 data-i18n="skills.g3Title">Herramientas &amp; prácticas</h3>
-            <small data-i18n="skills.g3Small">Flujo de trabajo moderno y orientado a calidad</small>
-            <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="git">Git · GitFlow</button>
-              <button class="skill-tag" type="button" data-skill="gha">GitHub Actions</button>
-              <button class="skill-tag" type="button" data-skill="docker">Docker</button>
-              <button class="skill-tag" type="button" data-skill="tdd">TDD</button>
-              <button class="skill-tag" type="button" data-skill="agile">Ágil</button>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <h3 data-i18n="skills.g4Title">Bases de datos</h3>
-            <small data-i18n="skills.g4Small">Modelado, consultas y servicios de datos</small>
-            <div class="skill-tags">
-              <button class="skill-tag" type="button" data-skill="sql">SQL</button>
-              <button class="skill-tag" type="button" data-skill="supabase">Supabase</button>
-              <button class="skill-tag" type="button" data-skill="mongo">MongoDB</button>
-            </div>
-          </div>
-        </div>
-
-        <aside class="skills-panel" aria-live="polite">
-          <p class="skills-panel-title" data-i18n="skills.panelTitle">// detalle</p>
-          <div class="skills-panel-main" id="skills-panel-main" data-i18n="skills.panelDefault">
-            <strong>Pasá el mouse o tocá un skill</strong> para ver cómo lo uso en proyectos reales.
-          </div>
-          <div class="skills-panel-footer" id="skills-panel-footer" data-i18n="skills.panelFooter">
-            Cada tecnología conecta con un proyecto: por ejemplo Next.js + TypeScript + Supabase en CambiaLa.
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Experiencia y educación -->
-    <section id="experiencia">
-      <div class="container">
-        <p class="section-subtitle" data-i18n="exp.eyebrow">trayectoria</p>
-        <h2 data-i18n="exp.title">Experiencia &amp; educación</h2>
-        <p class="section-lead" data-i18n="exp.lead">Dónde estoy creciendo como desarrollador y qué estudio en paralelo.</p>
-
-        <div class="timeline">
-          <div class="timeline-col">
-            <p class="timeline-col-title" data-i18n="exp.colExp">Experiencia</p>
-            <div class="timeline-item is-current">
-              <h3 class="timeline-title" data-i18n="exp.tcsTitle">Pasante – Tata Consultancy Services</h3>
-              <p class="timeline-meta" data-i18n="exp.tcsMeta">Montevideo, Uruguay · Abr 2026 – Actualidad</p>
-              <p class="timeline-body" data-i18n="exp.tcsBody">
-                Desarrollo dentro del ecosistema Salesforce, trabajando con Apex y buenas prácticas de la
-                plataforma. Sumo experiencia en un entorno profesional con equipos distribuidos, control de
-                versiones y trabajo orientado a calidad.
-              </p>
-            </div>
-            <div class="timeline-item">
-              <h3 class="timeline-title" data-i18n="exp.sycTitle">Chofer particular – SYC Company</h3>
-              <p class="timeline-meta" data-i18n="exp.sycMeta">Paso de los Toros, Uruguay · Jul 2022 – Mar 2023</p>
-              <p class="timeline-body" data-i18n="exp.sycBody">
-                Traslado diario de trabajadores de UPM coordinando rutas y horarios. Un rol que reforzó mi
-                responsabilidad, organización y comunicación con equipos diversos.
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-col">
-            <p class="timeline-col-title" data-i18n="exp.colEdu">Educación</p>
-            <div class="timeline-item is-current">
-              <h3 class="timeline-title" data-i18n="exp.ortTitle">Licenciatura en Sistemas – ORT</h3>
-              <p class="timeline-meta" data-i18n="exp.ortMeta">Montevideo, Uruguay · 2023 – 2027 (estimado)</p>
-              <p class="timeline-body" data-i18n="exp.ortBody">
-                Estudiante avanzado (3.º año). Cursando materias de programación, arquitectura de software,
-                bases de datos, ingeniería de requerimientos y metodologías de desarrollo.
-              </p>
-            </div>
-            <div class="timeline-item">
-              <h3 class="timeline-title" data-i18n="exp.fceTitle">Inglés B2 – First Certificate (FCE)</h3>
-              <p class="timeline-meta" data-i18n="exp.fceMeta">Certificación Cambridge</p>
-              <p class="timeline-body" data-i18n="exp.fceBody">
-                Nivel intermedio-alto. Lectura cómoda de documentación técnica y comunicación con equipos
-                internacionales.
-              </p>
+      <!-- LAPTOP 3D · decorativa, se revela en el scroll (igual que HD) -->
+      <div class="lp" id="lp" aria-hidden="true">
+        <div class="lp-fit">
+          <div class="lp-world" id="lpWorld">
+            <div class="lp-shadow"></div>
+            <div class="lp-rig" id="lpRig">
+              <!-- BASE -->
+              <div class="lp-box lp-base">
+                <div class="lp-face lp-b-top"></div>
+                <div class="lp-face lp-b-bottom"></div>
+                <div class="lp-face lp-b-front"></div>
+                <div class="lp-face lp-b-back"></div>
+                <div class="lp-face lp-b-right"></div>
+                <div class="lp-face lp-b-left"></div>
+              </div>
+              <!-- TAPA con bisagra -->
+              <div class="lp-hingepos">
+                <div class="lp-hingerot" id="lpHinge">
+                  <div class="lp-box lp-lid">
+                    <div class="lp-face lp-l-back"></div>
+                    <div class="lp-face lp-l-top"></div>
+                    <div class="lp-face lp-l-bottom"></div>
+                    <div class="lp-face lp-l-right"></div>
+                    <div class="lp-face lp-l-left"></div>
+                    <div class="lp-face lp-l-front">
+                      <span class="lp-notch"></span>
+                      <div class="lp-glow" id="lpGlow"></div>
+                      <!-- mini-réplica de tu hero, viva (no es una foto) → queda nítida en el zoom -->
+                      <div class="lp-mini" id="lpMini">
+                        <div class="lp-mini-eyebrow"><span class="lp-mini-dot"></span><span data-i18n="hero.loc">Montevideo · backend · publica productos</span></div>
+                        <div class="lp-mini-name">Gonzalo<br/>Cabrera</div>
+                        <div class="lp-mini-sub" data-i18n="intro.sub">Desarrollador backend que publica productos completos.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Proyectos -->
-    <section id="proyectos">
-      <div class="container">
-        <p class="section-subtitle" data-i18n="proj.eyebrow">proyectos</p>
-        <h2 data-i18n="proj.title">Lo que estuve construyendo</h2>
-        <p class="section-lead" data-i18n="proj.lead">Problema, decisiones y resultado: así encaro cada proyecto.</p>
-
-        <div class="projects-grid">
-          <!-- CambiaLa (destacado) -->
-          <article class="project-card project-card--featured">
-            <div class="project-shot project-shot--cambiala">
-              <img src="assets/img/sccambiala.webp" alt="Captura de cambiala.uy: «Te encontramos con quién cambiar tus figuritas»" loading="lazy" />
-            </div>
-            <div class="project-info">
-              <div class="project-head">
-                <h3>CambiaLa</h3>
-                <a class="project-domain" href="https://cambiala.uy" target="_blank" rel="noreferrer">cambiala.uy</a>
-              </div>
-              <dl class="project-brief">
-                <div>
-                  <dt data-i18n="proj.problem">Problema</dt>
-                  <dd data-i18n="proj.cambProblem">Cuando ya cambiaste figuritas con todos tus conocidos, solo queda comprar más paquetes. Ninguna app te conectaba con coleccionistas cerca tuyo.</dd>
-                </div>
-                <div>
-                  <dt data-i18n="proj.decisions">Decisiones</dt>
-                  <dd data-i18n="proj.cambDecisions">MVP estricto (qué dejar afuera), modelo de datos primero, matching por cercanía, chat y reputación por reseñas.</dd>
-                </div>
-                <div>
-                  <dt>Stack</dt>
-                  <dd class="dd-stack">Next.js · TypeScript · Supabase · Prisma · Vercel · Inngest</dd>
-                </div>
-                <div>
-                  <dt data-i18n="proj.result">Resultado</dt>
-                  <dd data-i18n="proj.cambResult">En producción con dominio propio y SEO desde el día uno. Producto end-to-end: de la idea al deploy.</dd>
-                </div>
-              </dl>
-              <div class="project-links">
-                <a class="project-link" href="https://cambiala.uy" target="_blank" rel="noreferrer" data-i18n="proj.cambTry">Probala →</a>
-                <a class="project-link" href="https://www.linkedin.com/posts/gonzalocabrera9_desarrollo-ia-claude-share-7470829272517992448-fKOZ/" target="_blank" rel="noreferrer" data-i18n="proj.cambLinkedin">Post en LinkedIn →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- TicketReceiptBot -->
-          <article class="project-card">
-            <div class="project-shot project-shot--bot" aria-hidden="true">
-              <div class="shot-chat">
-                <div class="shot-msg shot-msg--user">📸 ticket-super.jpg</div>
-                <div class="shot-msg shot-msg--bot">✅ Guardado en Notion<br /><span>Supermercado · 11/06 · 3 ítems</span></div>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-head">
-                <h3>TicketReceiptBot</h3>
-                <span class="project-icon">🧾</span>
-              </div>
-              <dl class="project-brief">
-                <div>
-                  <dt data-i18n="proj.problem">Problema</dt>
-                  <dd data-i18n="proj.trbProblem">Registrar gastos a mano tiene demasiada fricción; las apps existentes son pagas o exigen carga manual.</dd>
-                </div>
-                <div>
-                  <dt data-i18n="proj.decisions">Decisiones</dt>
-                  <dd data-i18n="proj.trbDecisions">Telegram en vez de WhatsApp (API gratuita vs. paga), Notion como base visual que cualquiera duplica, costo ~$0.003 por ticket.</dd>
-                </div>
-                <div>
-                  <dt>Stack</dt>
-                  <dd class="dd-stack">Python · Claude API · Notion · Railway</dd>
-                </div>
-                <div>
-                  <dt data-i18n="proj.result">Resultado</dt>
-                  <dd data-i18n="proj.trbResult">En uso diario. El repo es público con plantilla replicable.</dd>
-                </div>
-              </dl>
-              <div class="project-links">
-                <a class="project-link" href="https://github.com/gonzalocvv/TicketReceiptBot" target="_blank" rel="noreferrer">GitHub →</a>
-                <a class="project-link" href="https://www.linkedin.com/posts/gonzalocabrera9_empezando-el-nuevo-semestre-quer%C3%ADa-saber-ugcPost-7448389935453388800-JPEp" target="_blank" rel="noreferrer" data-i18n="proj.trbLinkedin">Post en LinkedIn →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- TaskTrackPro -->
-          <article class="project-card">
-            <div class="project-shot project-shot--task" aria-hidden="true">
-              <svg class="shot-gantt" viewBox="0 0 480 252" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-                <!-- grilla de días -->
-                <g stroke="#222b3d" stroke-width="1">
-                  <line x1="58" y1="34" x2="58" y2="218" /><line x1="130" y1="34" x2="130" y2="218" />
-                  <line x1="202" y1="34" x2="202" y2="218" /><line x1="274" y1="34" x2="274" y2="218" />
-                  <line x1="346" y1="34" x2="346" y2="218" /><line x1="418" y1="34" x2="418" y2="218" />
-                </g>
-                <g font-family="JetBrains Mono, monospace" font-size="9" fill="#5b6573">
-                  <text x="58" y="26" text-anchor="middle">d0</text>
-                  <text x="130" y="26" text-anchor="middle">d2</text>
-                  <text x="202" y="26" text-anchor="middle">d4</text>
-                  <text x="274" y="26" text-anchor="middle">d6</text>
-                  <text x="346" y="26" text-anchor="middle">d8</text>
-                  <text x="418" y="26" text-anchor="middle">d10</text>
-                </g>
-
-                <!-- etiquetas de tareas -->
-                <g font-family="JetBrains Mono, monospace" font-size="10" fill="#8b96aa">
-                  <text x="44" y="56" text-anchor="end">T1</text>
-                  <text x="44" y="90" text-anchor="end">T2</text>
-                  <text x="44" y="124" text-anchor="end">T3</text>
-                  <text x="44" y="158" text-anchor="end">T4</text>
-                  <text x="44" y="192" text-anchor="end">T5</text>
-                </g>
-
-                <!-- T1: crítica, d0-d3 -->
-                <rect x="58" y="46" width="108" height="14" rx="4" fill="#fb7185" />
-                <!-- T2: crítica, d3-d7 -->
-                <rect x="166" y="80" width="144" height="14" rx="4" fill="#fb7185" />
-                <!-- T3: d3-d5 + holgura hasta d7 -->
-                <rect x="166" y="114" width="72" height="14" rx="4" fill="#818cf8" />
-                <rect x="238" y="114" width="72" height="14" rx="4" fill="none" stroke="#5b6573" stroke-dasharray="4 3" />
-                <text x="246" y="125" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#5b6573">holgura 2d</text>
-                <!-- T4: crítica, d7-d10 -->
-                <rect x="310" y="148" width="108" height="14" rx="4" fill="#fb7185" />
-                <!-- T5: d5-d8 + holgura hasta d10 -->
-                <rect x="238" y="182" width="108" height="14" rx="4" fill="#818cf8" />
-                <rect x="346" y="182" width="72" height="14" rx="4" fill="none" stroke="#5b6573" stroke-dasharray="4 3" />
-                <text x="354" y="193" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#5b6573">holgura 2d</text>
-
-                <!-- dependencias (camino crítico en rosa) -->
-                <defs>
-                  <marker id="arr-c" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-                    <path d="M0,0 L8,4 L0,8 z" fill="#fb7185" />
-                  </marker>
-                  <marker id="arr-n" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-                    <path d="M0,0 L8,4 L0,8 z" fill="#5b6573" />
-                  </marker>
-                </defs>
-                <!-- T1 → T2 (crítica) -->
-                <path d="M166 53 L166 73 L166 80" fill="none" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arr-c)" />
-                <!-- T1 → T3 -->
-                <path d="M160 60 L160 121 L164 121" fill="none" stroke="#5b6573" stroke-width="1.2" marker-end="url(#arr-n)" />
-                <!-- T2 → T4 (crítica) -->
-                <path d="M310 87 L310 141 L310 148" fill="none" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arr-c)" />
-                <!-- T3 → T5 -->
-                <path d="M238 128 L232 128 L232 189 L236 189" fill="none" stroke="#5b6573" stroke-width="1.2" marker-end="url(#arr-n)" />
-
-                <!-- leyenda -->
-                <g font-family="JetBrains Mono, monospace" font-size="9">
-                  <rect x="58" y="230" width="16" height="9" rx="3" fill="#fb7185" />
-                  <text x="80" y="238" fill="#8b96aa">camino crítico</text>
-                  <rect x="180" y="230" width="16" height="9" rx="3" fill="#818cf8" />
-                  <text x="202" y="238" fill="#8b96aa">tarea</text>
-                  <rect x="252" y="230" width="16" height="9" rx="3" fill="none" stroke="#5b6573" stroke-dasharray="4 3" />
-                  <text x="274" y="238" fill="#8b96aa">holgura</text>
-                </g>
-              </svg>
-            </div>
-            <div class="project-info">
-              <div class="project-head">
-                <h3>TaskTrackPro</h3>
-                <span class="project-icon">📋</span>
-              </div>
-              <dl class="project-brief">
-                <div>
-                  <dt data-i18n="proj.problem">Problema</dt>
-                  <dd data-i18n="proj.taskProblem">Gestión de proyectos y tareas con permisos y persistencia relacional (proyecto académico, ORT).</dd>
-                </div>
-                <div>
-                  <dt data-i18n="proj.decisions">Decisiones</dt>
-                  <dd data-i18n="proj.taskDecisions">TDD desde el primer commit, GitFlow y CI con GitHub Actions.</dd>
-                </div>
-                <div>
-                  <dt>Stack</dt>
-                  <dd class="dd-stack">.NET 8 · Blazor · SQL</dd>
-                </div>
-                <div>
-                  <dt data-i18n="proj.result">Resultado</dt>
-                  <dd data-i18n="proj.taskResult">Suite de tests completa y pipeline de CI.</dd>
-                </div>
-              </dl>
-              <div class="project-links">
-                <a class="project-link" href="https://github.com/gonzalocvv/TaskTrackPro" target="_blank" rel="noreferrer" data-i18n="proj.taskGithub">Ver repo →</a>
-              </div>
-            </div>
-          </article>
+      <!-- HERO real · se revela tras el handoff (accesible e indexable) -->
+      <div class="container hero-grid hero-reveal" id="heroReveal">
+      <div class="reveal">
+        <div class="eyebrow-live"><span class="dot-live"></span><span data-i18n="hero.loc">Montevideo · backend · publica productos</span></div>
+        <h1 class="hero-title">Gonzalo<br/>Cabrera</h1>
+        <p class="hero-sub" data-i18n="hero.sub">Desarrollador backend que publica productos completos. C#, .NET 8 y SQL — creador de <a href="https://cambiala.uy" target="_blank" rel="noreferrer">CambiaLa</a>, hoy en Salesforce en TCS. Trabajo como un equipo de una persona — así que armé uno que construye solo.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#proyectos" data-i18n="hero.viewProjects">Ver proyectos →</a>
+          <a class="btn btn-outline" href="assets/cv/CV.pdf" target="_blank" rel="noreferrer" data-i18n="hero.cv">Descargar CV</a>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">SQL</span>
+          <span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">Apex</span>
         </div>
       </div>
-    </section>
 
-    <!-- Contacto -->
-    <section id="contacto">
-      <div class="container contact-layout">
-        <div>
-          <p class="section-subtitle" data-i18n="contact.eyebrow">contacto</p>
-          <h2 data-i18n="contact.title">¿Hablamos?</h2>
-          <p class="section-lead" data-i18n="contact.lead">
-            ¿Tenés un proyecto, una propuesta o simplemente querés saludar? Escribime con el formulario
-            o directo por email o LinkedIn.
-          </p>
-
-          <form id="contact-form" novalidate>
-            <div class="field">
-              <label for="name" data-i18n="contact.name">Nombre</label>
-              <input type="text" id="name" name="name" autocomplete="name" required />
-              <div class="error-message" id="name-error"></div>
-            </div>
-            <div class="field">
-              <label for="email" data-i18n="contact.emailLabel">Email</label>
-              <input type="email" id="email" name="email" autocomplete="email" required />
-              <div class="error-message" id="email-error"></div>
-            </div>
-            <div class="field">
-              <label for="message" data-i18n="contact.message">Mensaje</label>
-              <textarea id="message" name="message" required></textarea>
-              <div class="error-message" id="message-error"></div>
-            </div>
-            <p class="input-hint" data-i18n="contact.hint">Al enviar se abre tu cliente de email con el mensaje listo para mandar.</p>
-            <button class="btn btn-primary" type="submit" data-i18n="contact.send">Enviar mensaje</button>
-          </form>
+      <!-- engine -->
+      <div class="engine reveal">
+        <div class="engine-head">
+          <div class="engine-brand"><span class="d"></span><span>autonomous-team</span><span class="dim" data-i18n="eng.building">· building products</span></div>
+          <div class="engine-meta"><b id="eng-ver">v1.4</b> <span class="sep">·</span> <span class="stat" id="eng-status">booting…</span></div>
         </div>
-
-        <aside class="contact-card">
-          <h3 data-i18n="contact.cardTitle">Datos de contacto</h3>
-          <ul>
-            <li>
-              <span class="label" data-i18n="contact.emailLabel2">Email</span>
-              <a href="mailto:gcabrera3210@gmail.com">gcabrera3210@gmail.com</a>
-            </li>
-            <li>
-              <span class="label">LinkedIn</span>
-              <a href="https://linkedin.com/in/gonzalocabrera9" target="_blank" rel="noreferrer">linkedin.com/in/gonzalocabrera9</a>
-            </li>
-            <li>
-              <span class="label">GitHub</span>
-              <a href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">github.com/gonzalocvv</a>
-            </li>
-            <li>
-              <span class="label" data-i18n="contact.location">Ubicación</span>
-              <span>Montevideo, Uruguay</span>
-            </li>
-          </ul>
-        </aside>
+        <div class="net3d" id="net3d">
+          <canvas id="net-canvas"></canvas>
+          <div class="net-labels" id="net-labels"></div>
+          <div class="net-hint">agent-network · 3D · <span data-i18n="eng.orbit">arrastrá para orbitar</span></div>
+        </div>
+        <div class="editor-wrap">
+          <div class="editor-bar">
+            <span class="tl" style="background:#ff5f57"></span><span class="tl" style="background:#febc2e"></span><span class="tl" style="background:#28c840"></span>
+            <span class="ed-file" id="ed-file">spec.md</span>
+            <span class="ed-by" id="ed-by">— product</span>
+          </div>
+          <pre class="editor" id="editor"></pre>
+        </div>
+        <div class="buildlog">
+          <div class="buildlog-title" data-i18n="eng.log">build log</div>
+          <div class="log" id="log"></div>
+        </div>
       </div>
-    </section>
-  </main>
+      </div><!-- /.hero-reveal -->
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-inner">
-      <div>© <span id="year"></span> <span class="footer-mark">Gonzalo Cabrera</span></div>
-      <div class="visit-counter" id="visit-counter"></div>
+      <div class="intro-hint" id="introHint" aria-hidden="true">
+        <span data-i18n="intro.hint">scrolleá para abrir</span>
+        <span class="bar"></span>
+      </div>
+    </div><!-- /.intro-stage -->
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="sobre-mi">
+    <div class="container about-grid">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="about.eyebrow">sobre mí</p>
+        <h2 class="section-title about-title" data-i18n="about.title">Del problema real al deploy</h2>
+        <div class="about-text">
+          <p data-i18n="about.p1">Soy estudiante de 3.º año de la Licenciatura en Sistemas en la Universidad ORT y Salesforce Trainee en <strong>Tata Consultancy Services</strong>. Pero lo que mejor me define es lo que construyo fuera del trabajo.</p>
+          <p data-i18n="about.p2">Publiqué <strong>CambiaLa</strong> (<a href="https://cambiala.uy" target="_blank" rel="noreferrer">cambiala.uy</a>), una app de intercambio de figuritas del Mundial 2026 — Next.js, TypeScript, Supabase, Prisma, deploy en Vercel — donde las decisiones de producto, arquitectura y alcance fueron mías. Antes, un bot de Telegram que registra gastos a partir de la foto del ticket usando la API de Claude; el repo es público.</p>
+          <p data-i18n="about.p3">Mi base diaria es backend: C#, .NET 8, SQL, APIs REST, TDD, GitFlow y CI con GitHub Actions. Uso herramientas de IA para avanzar más rápido — las decisiones de producto y arquitectura siguen siendo mías.</p>
+          <p data-i18n="about.p4">Esa es la constante en mis proyectos: encontrar un problema real, decidir qué construir (y qué no) y publicarlo.</p>
+        </div>
+        <div class="highlights">
+          <span class="hl" data-i18n="about.hl1">Lic. en Sistemas · ORT · 3.º año</span>
+          <span class="hl" data-i18n="about.hl2">CambiaLa en producción</span>
+          <span class="hl" data-i18n="about.hl3">Salesforce Trainee · TCS</span>
+          <span class="hl" data-i18n="about.hl4">TDD · GitFlow · CI</span>
+        </div>
+      </div>
+      <aside class="profile-card reveal">
+        <div class="profile-photo"><img src="assets/img/selfie.JPG" alt="Gonzalo Cabrera" /></div>
+        <p class="profile-name">Gonzalo Cabrera</p>
+        <p class="profile-role" data-i18n="profile.role">Software Developer · backend</p>
+        <div class="profile-links">
+          <a class="pill-link" href="https://linkedin.com/in/gonzalocabrera9" target="_blank" rel="noreferrer">LinkedIn <span>→</span></a>
+          <a class="pill-link" href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">GitHub <span>→</span></a>
+          <a class="pill-link" href="mailto:gcabrera3210@gmail.com">Email <span>→</span></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="section-alt">
+    <div class="container skills-grid">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="skills.eyebrow">skills</p>
+        <h2 class="section-title" data-i18n="skills.title">Stack técnico</h2>
+        <p class="lead" data-i18n="skills.lead">Las tecnologías con las que trabajo a diario y las que estoy sumando en mi pasantía. Pasá el mouse sobre un skill para ver cómo lo uso.</p>
+        <div class="skill-groups" id="skill-groups"></div>
+      </div>
+      <aside class="skills-panel reveal">
+        <div class="skills-panel-bar">// detalle</div>
+        <div class="skills-panel-body">
+          <div class="skills-panel-main" id="skills-panel-main" data-i18n="skills.panelDefault">Pasá el mouse o tocá un skill para ver cómo lo uso en proyectos reales.</div>
+          <div class="skills-panel-foot" id="skills-panel-foot" data-i18n="skills.panelFooter">Cada tecnología conecta con un proyecto real.</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experiencia">
+    <div class="container">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="exp.eyebrow">trayectoria</p>
+        <h2 class="section-title" data-i18n="exp.title">Experiencia &amp; educación</h2>
+        <p class="lead" data-i18n="exp.lead">Dónde estoy creciendo como desarrollador y qué estudio en paralelo.</p>
+      </div>
+      <div class="exp-grid">
+        <div class="reveal">
+          <p class="tl-col-title" data-i18n="exp.colExp">Experiencia</p>
+          <div class="timeline">
+            <div class="tl-track"></div>
+            <div class="tl-item">
+              <span class="tl-node current"></span>
+              <div class="tl-title-row"><h3 class="tl-title" data-i18n="exp.tcsTitle">Pasante — Tata Consultancy Services</h3><span class="current-pill" data-i18n="exp.current">en curso</span></div>
+              <p class="tl-meta" data-i18n="exp.tcsMeta">Montevideo · Abr 2026 — Actualidad</p>
+              <p class="tl-body" data-i18n="exp.tcsBody">Desarrollo dentro del ecosistema Salesforce con Apex y buenas prácticas de la plataforma. Equipos distribuidos, control de versiones y trabajo orientado a calidad.</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-node"></span>
+              <h3 class="tl-title" data-i18n="exp.sycTitle">Chofer particular — SYC Company</h3>
+              <p class="tl-meta" data-i18n="exp.sycMeta">Paso de los Toros · Jul 2022 — Mar 2023</p>
+              <p class="tl-body" data-i18n="exp.sycBody">Traslado diario de trabajadores de UPM coordinando rutas y horarios. Reforzó mi responsabilidad, organización y comunicación.</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="tl-col-title" data-i18n="exp.colEdu">Educación</p>
+          <div class="timeline">
+            <div class="tl-track"></div>
+            <div class="tl-item">
+              <span class="tl-node current"></span>
+              <div class="tl-title-row"><h3 class="tl-title" data-i18n="exp.ortTitle">Licenciatura en Sistemas — ORT</h3><span class="current-pill" data-i18n="exp.current2">en curso</span></div>
+              <p class="tl-meta" data-i18n="exp.ortMeta">Montevideo · 2023 — 2027 (estimado)</p>
+              <p class="tl-body" data-i18n="exp.ortBody">Estudiante avanzado (3.º año). Programación, arquitectura de software, bases de datos, ingeniería de requerimientos y metodologías.</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-node"></span>
+              <h3 class="tl-title" data-i18n="exp.fceTitle">Inglés B2 — First Certificate (FCE)</h3>
+              <p class="tl-meta" data-i18n="exp.fceMeta">Certificación Cambridge</p>
+              <p class="tl-body" data-i18n="exp.fceBody">Nivel intermedio-alto. Lectura cómoda de documentación técnica y comunicación con equipos internacionales.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="proyectos" class="section-alt">
+    <div class="container">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="proj.eyebrow">proyectos</p>
+        <h2 class="section-title" data-i18n="proj.title">Lo que estuve construyendo</h2>
+        <p class="lead" data-i18n="proj.lead">Problema, decisiones y resultado: así encaro cada proyecto.</p>
+      </div>
+      <div class="projects-list" id="projects"></div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contacto">
+    <div class="container contact-grid">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="contact.eyebrow">contacto</p>
+        <h2 class="contact-title" data-i18n="contact.title">¿Hablamos?</h2>
+        <p class="lead" data-i18n="contact.lead">¿Tenés un proyecto, una propuesta o querés saludar? Escribime con el formulario o directo por email.</p>
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="field">
+            <label for="cf-name" data-i18n="contact.name">Nombre</label>
+            <input id="cf-name" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="cf-email" data-i18n="contact.email">Email</label>
+            <input id="cf-email" name="email" type="email" required />
+          </div>
+          <div class="field">
+            <label for="cf-msg" data-i18n="contact.message">Mensaje</label>
+            <textarea id="cf-msg" name="message" required></textarea>
+          </div>
+          <p class="input-hint" data-i18n="contact.hint">El mensaje me llega directo a mi correo — te respondo a la brevedad.</p>
+          <button class="btn-submit" type="submit" data-i18n="contact.send">Enviar mensaje</button>
+          <p class="input-hint" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <aside class="contact-card reveal">
+        <h3 data-i18n="contact.cardTitle">Datos de contacto</h3>
+        <div class="contact-list">
+          <div class="contact-item"><div class="ci-label">Email</div><a href="mailto:gcabrera3210@gmail.com">gcabrera3210@gmail.com</a></div>
+          <div class="contact-item"><div class="ci-label">LinkedIn</div><a href="https://linkedin.com/in/gonzalocabrera9" target="_blank" rel="noreferrer">/in/gonzalocabrera9</a></div>
+          <div class="contact-item"><div class="ci-label">GitHub</div><a href="https://github.com/gonzalocvv" target="_blank" rel="noreferrer">/gonzalocvv</a></div>
+          <div class="contact-item"><div class="ci-label" data-i18n="contact.loc">Ubicación</div><span>Montevideo, Uruguay</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year">2026</span> <b>Gonzalo Cabrera</b></div>
+      <div></div>
     </div>
   </footer>
 
-  <script src="assets/js/main.js"></script>
-
-  <!-- FX: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
-  <script src="assets/js/effects.js"></script>
-  <script src="assets/js/hero-particles.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
