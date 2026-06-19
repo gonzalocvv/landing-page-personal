@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gonzalocvv.github.io/landing-page-personal/sitemap.xml

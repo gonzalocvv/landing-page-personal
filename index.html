@@ -25,16 +25,46 @@
   <title>Gonzalo Cabrera — Software Developer</title>
   <meta name="description" content="Gonzalo Cabrera — Desarrollador backend que publica productos completos. Creador de CambiaLa (cambiala.uy). C#, .NET 8 y SQL · Next.js, TypeScript y Supabase. Salesforce (Apex) en TCS. Montevideo, Uruguay." />
   <meta name="author" content="Gonzalo Cabrera" />
+  <link rel="canonical" href="https://gonzalocvv.github.io/landing-page-personal/" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gonzalocvv.github.io/landing-page-personal/" />
+  <meta property="og:site_name" content="Gonzalo Cabrera" />
   <meta property="og:title" content="Gonzalo Cabrera — Software Developer" />
   <meta property="og:description" content="Desarrollador backend que publica productos completos. Creador de CambiaLa." />
+  <meta property="og:image" content="https://gonzalocvv.github.io/landing-page-personal/assets/img/selfie.JPG" />
   <meta property="og:locale" content="es_UY" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gonzalo Cabrera — Software Developer" />
+  <meta name="twitter:description" content="Desarrollador backend que publica productos completos. Creador de CambiaLa." />
+  <meta name="twitter:image" content="https://gonzalocvv.github.io/landing-page-personal/assets/img/selfie.JPG" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Datos estructurados: le dicen a Google explícitamente que esto es una persona -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Gonzalo Cabrera",
+    "url": "https://gonzalocvv.github.io/landing-page-personal/",
+    "image": "https://gonzalocvv.github.io/landing-page-personal/assets/img/selfie.JPG",
+    "jobTitle": "Software Developer",
+    "description": "Desarrollador backend que publica productos completos. Creador de CambiaLa.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Montevideo", "addressCountry": "UY" },
+    "worksFor": { "@type": "Organization", "name": "Tata Consultancy Services" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universidad ORT Uruguay" },
+    "knowsAbout": ["C#", ".NET 8", "SQL", "TypeScript", "Next.js", "Apex", "Backend"],
+    "sameAs": [
+      "https://www.linkedin.com/in/gonzalocabrera9",
+      "https://github.com/gonzalocvv",
+      "https://cambiala.uy"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -91,7 +121,6 @@
                       <div class="lp-glow" id="lpGlow"></div>
                       <!-- mini-réplica de tu hero, viva (no es una foto) → queda nítida en el zoom -->
                       <div class="lp-mini" id="lpMini">
-                        <div class="lp-mini-eyebrow"><span class="lp-mini-dot"></span><span data-i18n="hero.loc">Montevideo · backend · publica productos</span></div>
                         <div class="lp-mini-name">Gonzalo<br/>Cabrera</div>
                         <div class="lp-mini-sub" data-i18n="intro.sub">Desarrollador backend que publica productos completos.</div>
                       </div>
@@ -107,7 +136,6 @@
       <!-- HERO real · se revela tras el handoff (accesible e indexable) -->
       <div class="container hero-grid hero-reveal" id="heroReveal">
       <div class="reveal">
-        <div class="eyebrow-live"><span class="dot-live"></span><span data-i18n="hero.loc">Montevideo · backend · publica productos</span></div>
         <h1 class="hero-title">Gonzalo<br/>Cabrera</h1>
         <p class="hero-sub" data-i18n="hero.sub">Desarrollador backend que publica productos completos. C#, .NET 8 y SQL — creador de <a href="https://cambiala.uy" target="_blank" rel="noreferrer">CambiaLa</a>, hoy en Salesforce en TCS. Trabajo como un equipo de una persona — así que armé uno que construye solo.</p>
         <div class="hero-actions">
@@ -157,7 +185,6 @@
   <section id="sobre-mi">
     <div class="container about-grid">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="about.eyebrow">sobre mí</p>
         <h2 class="section-title about-title" data-i18n="about.title">Del problema real al deploy</h2>
         <div class="about-text">
           <p data-i18n="about.p1">Soy estudiante de 3.º año de la Licenciatura en Sistemas en la Universidad ORT y Salesforce Trainee en <strong>Tata Consultancy Services</strong>. Pero lo que mejor me define es lo que construyo fuera del trabajo.</p>
@@ -189,7 +216,6 @@
   <section id="skills" class="section-alt">
     <div class="container skills-grid">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="skills.eyebrow">skills</p>
         <h2 class="section-title" data-i18n="skills.title">Stack técnico</h2>
         <p class="lead" data-i18n="skills.lead">Las tecnologías con las que trabajo a diario y las que estoy sumando en mi pasantía. Pasá el mouse sobre un skill para ver cómo lo uso.</p>
         <div class="skill-groups" id="skill-groups"></div>
@@ -208,7 +234,6 @@
   <section id="experiencia">
     <div class="container">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="exp.eyebrow">trayectoria</p>
         <h2 class="section-title" data-i18n="exp.title">Experiencia &amp; educación</h2>
         <p class="lead" data-i18n="exp.lead">Dónde estoy creciendo como desarrollador y qué estudio en paralelo.</p>
       </div>
@@ -257,7 +282,6 @@
   <section id="proyectos" class="section-alt">
     <div class="container">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="proj.eyebrow">proyectos</p>
         <h2 class="section-title" data-i18n="proj.title">Lo que estuve construyendo</h2>
         <p class="lead" data-i18n="proj.lead">Problema, decisiones y resultado: así encaro cada proyecto.</p>
       </div>
@@ -269,7 +293,6 @@
   <section id="contacto">
     <div class="container contact-grid">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="contact.eyebrow">contacto</p>
         <h2 class="contact-title" data-i18n="contact.title">¿Hablamos?</h2>
         <p class="lead" data-i18n="contact.lead">¿Tenés un proyecto, una propuesta o querés saludar? Escribime con el formulario o directo por email.</p>
         <form class="contact-form" id="contact-form" novalidate>
