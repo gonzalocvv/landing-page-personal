@@ -120,7 +120,7 @@
   var EN = {
     "nav.about": "about", "nav.skills": "skills", "nav.experience": "experience", "nav.projects": "projects", "nav.contact": "contact",
     "hero.loc": "Montevideo · backend · ships products",
-    "hero.sub": "Backend developer who publishes complete products. C#, .NET 8 and SQL — creator of <a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">CambiaLa</a>, now on Salesforce at TCS. I work like a one-person team — so I built one that ships on its own.",
+    "hero.sub": "I build real products, end to end. C#, .NET 8 and SQL. Creator of <a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">CambiaLa</a>. Now, Salesforce at TCS.",
     "hero.viewProjects": "View projects →", "hero.cv": "Download CV",
     "eng.building": "· building products", "eng.log": "build log", "eng.orbit": "drag to orbit",
     "intro.hint": "scroll to open", "intro.sub": "Backend developer who ships complete products.",
