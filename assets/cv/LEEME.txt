@@ -1,7 +1,0 @@
-Poné tu CV acá.
-
-1. Copiá tu archivo PDF en esta carpeta (assets/cv/).
-2. Nombralo exactamente:  CV.pdf
-   (o cambiá el enlace en index.html — buscá  href="assets/cv/CV.pdf")
-
-El botón "Descargar CV" del sitio apunta a  assets/cv/CV.pdf
