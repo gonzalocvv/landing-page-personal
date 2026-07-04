@@ -119,37 +119,52 @@
 
   var EN = {
     "nav.about": "about", "nav.skills": "skills", "nav.experience": "experience", "nav.projects": "projects", "nav.contact": "contact",
-    "hero.loc": "Montevideo · backend · ships products",
     "hero.sub": "I build real products, end to end. C#, .NET 8 and SQL. Creator of <a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">CambiaLa</a>. Now, Salesforce at TCS.",
     "hero.viewProjects": "View projects →", "hero.cv": "Download CV",
     "eng.building": "· building products", "eng.log": "build log", "eng.orbit": "drag to orbit",
     "intro.hint": "scroll to open", "intro.sub": "Backend developer who ships complete products.",
-    "about.eyebrow": "about", "about.title": "From real problem to deploy",
+    "about.title": "From real problem to deploy",
     "about.p1": "I am a 3rd-year Software Engineering student at Universidad ORT and a Salesforce Trainee at <strong>Tata Consultancy Services</strong>. But what defines me best is what I build outside of work.",
     "about.p2": "I shipped <strong>CambiaLa</strong> (<a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">cambiala.uy</a>), a sticker-swap app for the 2026 World Cup — Next.js, TypeScript, Supabase, Prisma, deployed on Vercel — where product, architecture and scope decisions were all mine. Before that, a Telegram bot that logs expenses from a photo of the receipt using the Claude API; the repo is public.",
     "about.p3": "My daily base is backend: C#, .NET 8, SQL, REST APIs, TDD, GitFlow and CI with GitHub Actions. I use AI tools to move faster — the product and architecture calls stay mine.",
     "about.p4": "That is the constant across my projects: find a real problem, decide what to build (and what not to) and ship it.",
     "about.hl1": "BSc Software Eng · ORT · 3rd year", "about.hl2": "CambiaLa in production", "about.hl3": "Salesforce Trainee · TCS", "about.hl4": "TDD · GitFlow · CI",
     "profile.role": "Software Developer · backend",
-    "skills.eyebrow": "skills", "skills.title": "Tech stack", "skills.lead": "The technologies I work with daily and the ones I am adding during my internship. Hover a skill to see how I use it.",
+    "skills.title": "Tech stack", "skills.lead": "The technologies I work with daily and the ones I am adding during my internship. Hover a skill to see how I use it.",
     "skills.panelDefault": "Hover or tap a skill to see how I use it in real projects.", "skills.panelFooter": "Every technology maps to a real project.",
-    "exp.eyebrow": "path", "exp.title": "Experience & education", "exp.lead": "Where I am growing as a developer and what I study in parallel.",
+    "exp.title": "Experience & education", "exp.lead": "Where I am growing as a developer and what I study in parallel.",
     "exp.colExp": "Experience", "exp.colEdu": "Education", "exp.current": "ongoing", "exp.current2": "ongoing",
     "exp.tcsTitle": "Intern — Tata Consultancy Services", "exp.tcsMeta": "Montevideo · Apr 2026 — Present", "exp.tcsBody": "Development inside the Salesforce ecosystem with Apex and platform best practices. Distributed teams, version control and quality-driven work.",
     "exp.sycTitle": "Private driver — SYC Company", "exp.sycMeta": "Paso de los Toros · Jul 2022 — Mar 2023", "exp.sycBody": "Daily transport of UPM workers, coordinating routes and schedules. Strengthened my responsibility, organization and communication.",
     "exp.ortTitle": "BSc in Software Engineering — ORT", "exp.ortMeta": "Montevideo · 2023 — 2027 (est.)", "exp.ortBody": "Advanced student (3rd year). Programming, software architecture, databases, requirements engineering and methodologies.",
     "exp.fceTitle": "English B2 — First Certificate (FCE)", "exp.fceMeta": "Cambridge certification", "exp.fceBody": "Upper-intermediate. Comfortable reading technical docs and communicating with international teams.",
-    "proj.eyebrow": "projects", "proj.title": "What I have been building", "proj.lead": "Problem, decisions and result: that is how I approach each project.",
-    "contact.eyebrow": "contact", "contact.title": "Let us talk?", "contact.lead": "Got a project, a proposal or just want to say hi? Reach me with the form or straight by email.",
+    "proj.title": "What I have been building", "proj.lead": "Problem, decisions and result: that is how I approach each project.",
+    "contact.title": "Let us talk?", "contact.lead": "Got a project, a proposal or just want to say hi? Reach me with the form or straight by email.",
     "contact.name": "Name", "contact.email": "Email", "contact.message": "Message", "contact.hint": "Your message lands straight in my inbox — I'll reply soon.", "contact.send": "Send message", "contact.cardTitle": "Contact details", "contact.loc": "Location"
   };
 
   /* ---------------- STATE ---------------- */
   var timers = [], version = 1.4, lang = "es", ES = {};
-  var raf = [], three = null, hubs = null, hubState = [], packet3 = null, labels3 = null, workerMat = null, edgeMat = null, col = null, ready3d = false, curPhase = 0, spin = 0;
+  var rafId = 0, three = null, hubs = null, hubState = [], packet3 = null, labels3 = null, workerMat = null, edgeMat = null, col = null, ready3d = false, curPhase = 0, spin = 0;
   var tilt = { x: 0, y: 0 }, orbit = { x: 0, y: 0 };
   function wait(ms, fn) { var id = setTimeout(fn, ms); timers.push(id); return id; }
   function $(id) { return document.getElementById(id); }
+
+  /* ---------------- SCROLL · LENIS ----------------
+     Lenis es el único smooth-scroll (se quitó scroll-behavior del CSS) y el
+     ticker de GSAP es el único dueño del rAF (autoRaf:false — nunca los dos). */
+  var REDUCE = false;
+  try { REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  var lenis = null;
+  function initLenis() {
+    // reduced-motion o CDN caído → scroll nativo (scroll-padding-top cubre los anchors)
+    if (REDUCE || !window.Lenis || !window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    lenis = new Lenis({ autoRaf: false, anchors: { offset: -80 } }); // offset = header sticky
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
 
   /* ---------------- i18n ---------------- */
   function captureES() {
@@ -187,6 +202,23 @@
       try { localStorage.setItem("gc-lang", lang); } catch (e) {}
       applyLang(); buildSkills(); buildProjects();
     });
+
+    var header = document.querySelector(".site-header"), burger = $("nav-burger"), panel = $("nav-panel");
+    if (header && burger && panel) {
+      var setOpen = function (open) {
+        header.classList.toggle("nav-open", open);
+        burger.setAttribute("aria-expanded", open ? "true" : "false");
+        burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+        if (lenis) { if (open) lenis.stop(); else lenis.start(); }
+      };
+      var isOpen = function () { return header.classList.contains("nav-open"); };
+      burger.addEventListener("click", function () { setOpen(!isOpen()); });
+      panel.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && isOpen()) { setOpen(false); burger.focus(); }
+      });
+      window.addEventListener("resize", function () { if (window.innerWidth > 980 && isOpen()) setOpen(false); });
+    }
 
     var form = $("contact-form");
     if (form) form.addEventListener("submit", function (e) {
@@ -319,12 +351,36 @@
   }
 
   /* ---------------- AGENT ENGINE · WebGL 3D ---------------- */
-  function buildRoster() { hubState = AGENTS.map(function () { return "idle"; }); init3D(); }
+  function buildRoster() {
+    hubState = AGENTS.map(function () { return "idle"; });
+    // sin WebGL (o si Three falla) el resto del panel sigue funcionando
+    loadThree(function () { try { init3D(); } catch (e) {} });
+  }
+
+  /* Three.js (~600KB) ya no bloquea el primer paint: se inyecta post-LCP en idle,
+     o antes si el panel se acerca al viewport — lo que dispare primero. */
+  function loadThree(cb) {
+    if (window.THREE) return cb();
+    var fired = false;
+    function go() {
+      if (fired) return; fired = true;
+      var s = document.createElement("script");
+      s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+      s.onload = cb; // si el CDN falla, la sim de tipeo sigue sola (guards ready3d)
+      document.head.appendChild(s);
+    }
+    if (window.requestIdleCallback) requestIdleCallback(go, { timeout: 4000 }); else setTimeout(go, 2500);
+    var el = $("net3d");
+    if (el && "IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); go(); } }, { rootMargin: "600px" });
+      io.observe(el);
+    }
+  }
 
   function init3D() {
     var canvas = $("net-canvas"), wrap = $("net3d");
     if (!canvas || !wrap) return;
-    if (!window.THREE) { wait(120, init3D); return; }
+    if (!window.THREE) return;
     if (three) return;
     var THREE = window.THREE;
     function getW() { return wrap.clientWidth || 520; }
@@ -465,7 +521,7 @@
     hubs.forEach(function (h, i) { if ((hubState[i] || "") === "active") h.halo.scale.setScalar(pulse); });
     renderer.render(scene, cam);
     updateLabels();
-    raf.push(requestAnimationFrame(animate3D));
+    rafId = requestAnimationFrame(animate3D);
   }
 
   function measure() {
@@ -658,6 +714,7 @@
   /* ---------------- BOOT ---------------- */
   function init() {
     try { var sl = localStorage.getItem("gc-lang"); if (sl === "en") lang = "en"; } catch (e) {}
+    initLenis();
     buildSkills();
     buildProjects();
     buildRoster();
