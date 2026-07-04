@@ -49,9 +49,8 @@ img{display:block;max-width:100%}
 @keyframes gcblink{0%,49%{opacity:1}50%,100%{opacity:0}}
 @keyframes gclogin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
-/* reveal — content visible by default; .in plays an additive entrance (never blanks) */
-@keyframes gcrise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.reveal.in{animation:gcrise .7s ease both}
+/* reveals: el contenido es visible por defecto; el estado oculto y la entrada con
+   stagger los maneja GSAP (initReveal) — sin JS o sin CDN nunca queda nada en blanco */
 
 /* ---------- NAV ---------- */
 .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
@@ -265,8 +264,10 @@ section{padding:96px 0}
 .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:46px}
 .tl-col-title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:22px}
 .timeline{position:relative;padding-left:34px}
-.tl-track{position:absolute;left:6px;top:9px;bottom:9px;width:2px;
-  background:linear-gradient(var(--accent) 0%,var(--accent) 12%,var(--line) 60%)}
+.tl-track{position:absolute;left:6px;top:9px;bottom:9px;width:2px;background:var(--line)}
+/* la línea "se dibuja" con el scroll (scaleY scrubbeado); sin JS queda llena */
+.tl-track-fill{position:absolute;inset:0;transform-origin:top;
+  background:linear-gradient(var(--accent),color-mix(in srgb,var(--accent) 35%,transparent))}
 .tl-item{position:relative}
 .tl-item + .tl-item{margin-top:34px}
 .tl-node{position:absolute;left:-34px;top:3px;width:14px;height:14px;border-radius:50%;
@@ -281,15 +282,24 @@ section{padding:96px 0}
 
 /* ---------- PROJECTS ---------- */
 .projects-list{margin-top:42px;display:flex;flex-direction:column;gap:22px}
-.project{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px;
+.project{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px;
   display:grid;grid-template-columns:0.9fr 1.1fr;gap:26px;align-items:center}
+/* velo que "hunde" la card tapada durante el stacking (solo opacity — GPU) */
+.project-veil{position:absolute;inset:-1px;border-radius:16px;background:var(--surface);opacity:0;pointer-events:none}
+/* stacking solo en desktop: las cards se apilan sticky y la de atrás retrocede */
+@media (min-width:981px){
+  .projects-list{display:block}
+  .projects-list .project{position:sticky;top:96px}
+  .projects-list .project + .project{margin-top:8vh}
+}
 .project.featured{grid-template-columns:1.1fr 1fr}
 .project-shot{background:var(--chip-bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;aspect-ratio:16/10}
 .project-shot img{width:100%;height:100%;object-fit:cover}
 .pipe{display:flex;align-items:center;gap:10px;margin-top:16px}
 .pipe-step{flex:1;display:flex;flex-direction:column;gap:5px}
 .pipe-bar{height:4px;border-radius:3px;background:var(--line);overflow:hidden}
-.pipe-seg{display:block;height:100%;width:0;background:var(--accent);transition:width .5s ease}
+.pipe-seg{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left;
+  background:var(--accent);transition:transform .5s var(--ease-out)}
 .pipe-label{font-family:var(--mono);font-size:10px;color:var(--faint)}
 .pipe-status{font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap;min-width:74px;text-align:right}
 .project-name-row{display:flex;align-items:baseline;gap:10px}

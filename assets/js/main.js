@@ -58,7 +58,7 @@
       ["Git · GitFlow", "Ramas por feature y PRs desde el primer commit.", "Feature branches and PRs from commit one."],
       ["GitHub Actions", "CI: test + build automáticos en cada push.", "CI: automatic test + build on every push."],
       ["Docker", "Entornos reproducibles para servicios.", "Reproducible environments for services."],
-      ["TDD", "Tests primero — así nació TaskTrackPro.", "Tests first — that is how TaskTrackPro started."]
+      ["TDD", "Tests primero — así nació TaskTrackPro.", "Tests first — that's how TaskTrackPro started."]
     ]},
     { g: "Arquitectura & diseño", gEn: "Architecture & design", items: [
       ["API REST", "Diseño e implementación de APIs REST en .NET, consumidas desde Angular.", "Designing and building REST APIs in .NET, consumed from Angular."],
@@ -97,7 +97,7 @@
     { name: "CambiaLa", tag: "cambiala.uy", featured: true, img: "assets/img/sccambiala.webp",
       stack: "Next.js · TypeScript · Supabase · Prisma · Vercel",
       problem: ["Problema", "Problem"],
-      problemT: ["Cuando ya cambiaste figuritas con todos tus conocidos, solo queda comprar más. Ninguna app te conectaba con coleccionistas cerca.", "Once you have swapped stickers with everyone you know, you are stuck buying more. No app connected you with collectors nearby."],
+      problemT: ["Cuando ya cambiaste figuritas con todos tus conocidos, solo queda comprar más. Ninguna app te conectaba con coleccionistas cerca.", "Once you've swapped stickers with everyone you know, you're stuck buying more. No app connected you with collectors nearby."],
       result: ["Resultado", "Result"],
       resultT: ["En producción con dominio propio y SEO desde el día uno. Producto end-to-end: de la idea al deploy.", "In production with its own domain and SEO from day one. End-to-end product: from idea to deploy."],
       links: [["Probala →", "https://cambiala.uy"], ["LinkedIn →", "https://www.linkedin.com/posts/gonzalocabrera9_desarrollo-ia-claude-share-7470829272517992448-fKOZ/"]] },
@@ -124,22 +124,22 @@
     "eng.building": "· building products", "eng.log": "build log", "eng.orbit": "drag to orbit",
     "intro.hint": "scroll to open", "intro.sub": "Backend developer who ships complete products.",
     "about.title": "From real problem to deploy",
-    "about.p1": "I am a 3rd-year Software Engineering student at Universidad ORT and a Salesforce Trainee at <strong>Tata Consultancy Services</strong>. But what defines me best is what I build outside of work.",
+    "about.p1": "I'm a third-year Software Engineering student at Universidad ORT and a Salesforce Trainee at <strong>Tata Consultancy Services</strong>. But what defines me best is what I build outside of work.",
     "about.p2": "I shipped <strong>CambiaLa</strong> (<a href=\"https://cambiala.uy\" target=\"_blank\" rel=\"noreferrer\">cambiala.uy</a>), a sticker-swap app for the 2026 World Cup — Next.js, TypeScript, Supabase, Prisma, deployed on Vercel — where product, architecture and scope decisions were all mine. Before that, a Telegram bot that logs expenses from a photo of the receipt using the Claude API; the repo is public.",
     "about.p3": "My daily base is backend: C#, .NET 8, SQL, REST APIs, TDD, GitFlow and CI with GitHub Actions. I use AI tools to move faster — the product and architecture calls stay mine.",
-    "about.p4": "That is the constant across my projects: find a real problem, decide what to build (and what not to) and ship it.",
+    "about.p4": "That's the constant across my projects: find a real problem, decide what to build (and what not to) and ship it.",
     "about.hl1": "BSc Software Eng · ORT · 3rd year", "about.hl2": "CambiaLa in production", "about.hl3": "Salesforce Trainee · TCS", "about.hl4": "TDD · GitFlow · CI",
     "profile.role": "Software Developer · backend",
-    "skills.title": "Tech stack", "skills.lead": "The technologies I work with daily and the ones I am adding during my internship. Hover a skill to see how I use it.",
+    "skills.title": "Tech stack", "skills.lead": "The technologies I use daily and the ones I'm picking up during my internship. Hover or tap a skill to see how I use it.",
     "skills.panelDefault": "Hover or tap a skill to see how I use it in real projects.", "skills.panelFooter": "Every technology maps to a real project.",
-    "exp.title": "Experience & education", "exp.lead": "Where I am growing as a developer and what I study in parallel.",
+    "exp.title": "Experience & education", "exp.lead": "Where I'm growing as a developer and what I'm studying alongside.",
     "exp.colExp": "Experience", "exp.colEdu": "Education", "exp.current": "ongoing", "exp.current2": "ongoing",
     "exp.tcsTitle": "Intern — Tata Consultancy Services", "exp.tcsMeta": "Montevideo · Apr 2026 — Present", "exp.tcsBody": "Development inside the Salesforce ecosystem with Apex and platform best practices. Distributed teams, version control and quality-driven work.",
-    "exp.sycTitle": "Private driver — SYC Company", "exp.sycMeta": "Paso de los Toros · Jul 2022 — Mar 2023", "exp.sycBody": "Daily transport of UPM workers, coordinating routes and schedules. Strengthened my responsibility, organization and communication.",
+    "exp.sycTitle": "Private driver — SYC Company", "exp.sycMeta": "Paso de los Toros · Jul 2022 — Mar 2023", "exp.sycBody": "Daily transport of UPM workers, coordinating routes and schedules. It sharpened my responsibility, organization and communication.",
     "exp.ortTitle": "BSc in Software Engineering — ORT", "exp.ortMeta": "Montevideo · 2023 — 2027 (est.)", "exp.ortBody": "Advanced student (3rd year). Programming, software architecture, databases, requirements engineering and methodologies.",
     "exp.fceTitle": "English B2 — First Certificate (FCE)", "exp.fceMeta": "Cambridge certification", "exp.fceBody": "Upper-intermediate. Comfortable reading technical docs and communicating with international teams.",
-    "proj.title": "What I have been building", "proj.lead": "Problem, decisions and result: that is how I approach each project.",
-    "contact.title": "Let us talk?", "contact.lead": "Got a project, a proposal or just want to say hi? Reach me with the form or straight by email.",
+    "proj.title": "What I've been building", "proj.lead": "Problem, decisions and result: that's how I tackle every project.",
+    "contact.title": "Let's talk?", "contact.lead": "Got a project, a proposal or just want to say hi? Use the form or email me directly.",
     "contact.name": "Name", "contact.email": "Email", "contact.message": "Message", "contact.hint": "Your message lands straight in my inbox — I'll reply soon.", "contact.send": "Send message", "contact.cardTitle": "Contact details", "contact.loc": "Location"
   };
 
@@ -257,6 +257,7 @@
       lang = lang === "en" ? "es" : "en";
       try { localStorage.setItem("gc-lang", lang); } catch (e) {}
       applyLang(); buildSkills(); buildProjects();
+      initProjectStack(); // las cards se reconstruyeron: re-crear sus triggers
       bootLast = -1; renderBoot(); // re-tipea el boot de la intro en el idioma nuevo
     });
 
@@ -325,17 +326,55 @@
     });
   }
 
-  /* ---------------- REVEAL ---------------- */
+  /* ---------------- SCROLL · REVEALS / PARALLAX / TIMELINE ----------------
+     Una sola familia de motion en todo el sitio: entradas power4.out con stagger
+     de 80ms, "nada aparece de la nada" (scale .98 + fade). El estado oculto lo
+     pone SOLO JS y solo bajo el fold — sin GSAP el contenido queda visible. */
   function initReveal() {
-    var els = document.querySelectorAll(".reveal");
-    if (!("IntersectionObserver" in window)) {
-      for (var j = 0; j < els.length; j++) els[j].classList.add("in");
-      return;
-    }
-    var io = new IntersectionObserver(function (ents) {
-      ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
-    }, { threshold: 0.12 });
-    for (var i = 0; i < els.length; i++) io.observe(els[i]);
+    if (REDUCE || !window.gsap || !window.ScrollTrigger) return;
+    var els = gsap.utils.toArray(".reveal");
+    if (!els.length) return;
+    els.forEach(function (el) {
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
+        gsap.set(el, { autoAlpha: 0, y: 24, scale: .98 });
+      }
+    });
+    ScrollTrigger.batch(".reveal", {
+      start: "top 88%", once: true,
+      onEnter: function (batch) {
+        gsap.to(batch, { autoAlpha: 1, y: 0, scale: 1, duration: .7, ease: "power4.out", stagger: 0.08, overwrite: true });
+      }
+    });
+  }
+
+  function initParallax() {
+    if (REDUCE || !window.gsap || !window.ScrollTrigger) return;
+    var img = document.querySelector(".profile-photo img"); if (!img) return;
+    gsap.matchMedia().add("(min-width: 760px)", function () {
+      gsap.set(img, { scale: 1.12 }); // sangrado para que el desplazamiento no muestre bordes
+      gsap.fromTo(img, { yPercent: 6 }, {
+        yPercent: -6, ease: "none",
+        scrollTrigger: { trigger: ".profile-card", start: "top bottom", end: "bottom top", scrub: true }
+      });
+    });
+  }
+
+  function initTimelines() {
+    if (REDUCE || !window.gsap || !window.ScrollTrigger) return;
+    document.querySelectorAll(".timeline").forEach(function (tl) {
+      var fill = tl.querySelector(".tl-track-fill");
+      if (fill) gsap.fromTo(fill, { scaleY: 0 }, {
+        scaleY: 1, ease: "none",
+        scrollTrigger: { trigger: tl, start: "top 75%", end: "bottom 55%", scrub: true }
+      });
+      tl.querySelectorAll(".tl-item").forEach(function (item) {
+        var node = item.querySelector(".tl-node");
+        if (node) gsap.fromTo(node, { scale: .5, autoAlpha: .3 }, {
+          scale: 1, autoAlpha: 1, duration: .45, ease: "back.out(1.7)",
+          scrollTrigger: { trigger: item, start: "top 80%", once: true }
+        });
+      });
+    });
   }
 
   /* ---------------- SKILLS ---------------- */
@@ -386,9 +425,34 @@
           "<div><div class='brief-label'>Stack</div><p class='brief-text code'>" + p.stack + "</p></div>" +
           "<div><div class='brief-label'>" + (en ? p.result[1] : p.result[0]) + "</div><p class='brief-text'>" + (en ? p.resultT[1] : p.resultT[0]) + "</p></div>" +
         "</div>" +
-        "<div class='project-links'>" + links + "</div></div></article>";
+        "<div class='project-links'>" + links + "</div></div>" +
+        "<div class='project-veil' aria-hidden='true'></div></article>";
     }).join("");
     observeProjects();
+  }
+
+  /* Card stacking (solo desktop): sticky nativo hace el pin — mucho más robusto que
+     pinnear con ScrollTrigger cards de altura variable sobre Lenis — y GSAP scrubbea
+     el "retroceso" (scale + velo) de la card que queda tapada. */
+  var projectStackMM = null;
+  function initProjectStack() {
+    if (projectStackMM) { projectStackMM.revert(); projectStackMM = null; } // el toggle de idioma reconstruye las cards
+    if (REDUCE || !window.gsap || !window.ScrollTrigger) return;
+    projectStackMM = gsap.matchMedia();
+    projectStackMM.add("(min-width: 981px)", function () {
+      var cards = gsap.utils.toArray("#projects .project");
+      if (cards.length < 2) return;
+      gsap.set(cards, { transformOrigin: "50% 0%" });
+      cards.forEach(function (card, i) {
+        if (i === cards.length - 1) return;
+        var veil = card.querySelector(".project-veil");
+        var tl = gsap.timeline({
+          scrollTrigger: { trigger: cards[i + 1], start: "top bottom", end: "top 120px", scrub: true }
+        });
+        tl.to(card, { scale: .96, y: -8, ease: "none" }, 0);
+        if (veil) tl.to(veil, { opacity: .45, ease: "none" }, 0);
+      });
+    });
   }
   function observeProjects() {
     var pipes = document.querySelectorAll("[data-pipe]");
@@ -401,7 +465,7 @@
   function runProjectPipe(pipe) {
     var segs = pipe.querySelectorAll("[data-seg]");
     var status = pipe.querySelector("[data-pstatus]");
-    segs.forEach(function (s, i) { wait(260 * i + 200, function () { s.style.width = "100%"; }); });
+    segs.forEach(function (s, i) { wait(260 * i + 200, function () { s.style.transform = "scaleX(1)"; }); });
     wait(260 * segs.length + 500, function () {
       if (status) { status.textContent = lang === "en" ? "shipped ✓" : "deploy ✓"; status.style.color = "var(--green)"; }
     });
@@ -969,8 +1033,14 @@
     captureES();
     if (lang === "en") applyLang();
     initToggles();
-    initReveal();
+    // ORDEN IMPORTA: el pin de la intro se crea ANTES que el resto de los triggers.
+    // Un trigger creado antes del pin cuyo start natural cae dentro del rango pineado
+    // no recibe el offset del pin-spacer en el refresh → dispararía ~320vh antes.
     initIntro();
+    initReveal();
+    initParallax();
+    initTimelines();
+    initProjectStack();
     initEngineVisibility();
     var y = $("year"); if (y) y.textContent = new Date().getFullYear();
     requestAnimationFrame(function () {
