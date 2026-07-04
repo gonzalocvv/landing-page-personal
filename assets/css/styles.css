@@ -76,7 +76,7 @@ img{display:block;max-width:100%}
 /* ---------- HERO ---------- */
 .hero{display:block;padding:0}
 .intro-stage{position:relative}
-.intro-stage.intro-armed{min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.intro-stage.intro-armed{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:0.82fr 1.18fr;gap:54px;align-items:start;width:100%;padding:34px 0}
 
 /* ---------- INTRO · LAPTOP 3D (estilo HD) ---------- */
@@ -103,11 +103,13 @@ img{display:block;max-width:100%}
   background:linear-gradient(var(--lp-metalA),var(--lp-metalB))}
 .lp-b-left{width:var(--lp-bd);height:var(--lp-bh);transform:translate(-50%,-50%) rotateY(-90deg) translateZ(calc(var(--lp-bw)/2));
   background:linear-gradient(var(--lp-metalC),var(--lp-metalB))}
-/* teclado + trackpad sobre la cara superior */
+/* teclado sobre la cara superior — SVG vectorial (los repeating-gradients hacían
+   moiré al escalar 3-4x en el zoom; un pattern SVG escala sin aliasing y el negro
+   translúcido funciona sobre aluminio claro y space gray sin variantes por tema) */
 .lp-b-top::before{content:"";position:absolute;left:7%;top:8%;width:86%;height:54%;border-radius:6px;
-  background:
-    repeating-linear-gradient(90deg, color-mix(in srgb,var(--lp-metalD) 70%,#000) 0 5.1%, var(--lp-metalC) 5.1% 6.2%),
-    repeating-linear-gradient(180deg, color-mix(in srgb,var(--lp-metalD) 70%,#000) 0 15%, var(--lp-metalC) 15% 18%);
+  background-color:color-mix(in srgb,var(--lp-metalC) 84%,#000);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='210'%3E%3Cdefs%3E%3Cpattern id='k' width='34' height='42' patternUnits='userSpaceOnUse'%3E%3Crect x='2' y='2' width='30' height='38' rx='4' fill='rgba(0,0,0,0.30)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='480' height='164' fill='url(%23k)'/%3E%3Crect x='2' y='170' width='98' height='38' rx='4' fill='rgba(0,0,0,0.30)'/%3E%3Crect x='106' y='170' width='268' height='38' rx='5' fill='rgba(0,0,0,0.30)'/%3E%3Crect x='380' y='170' width='98' height='38' rx='4' fill='rgba(0,0,0,0.30)'/%3E%3C/svg%3E");
+  background-size:100% 100%;
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
 .lp-b-top::after{content:"";position:absolute;left:50%;top:70%;transform:translateX(-50%);width:34%;height:23%;
   border-radius:8px;background:linear-gradient(var(--lp-metalC),var(--lp-metalB));box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
@@ -122,6 +124,9 @@ img{display:block;max-width:100%}
 /* cara frontal = pantalla. Sin anillo exterior (eso sobresalía y pixelaba). */
 .lp-l-front{width:var(--lp-lw);height:var(--lp-lh);transform:translate(-50%,-50%) translateZ(calc(var(--lp-ld)/2));
   background:var(--lp-bezel);border-radius:14px;overflow:hidden}
+/* reflejo especular sutil sobre el vidrio (por encima de pantalla y notch) */
+.lp-l-front::before{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;border-radius:14px;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.06) 45%,rgba(255,255,255,.02) 50%,transparent 55%)}
 .lp-l-back{width:var(--lp-lw);height:var(--lp-lh);transform:translate(-50%,-50%) rotateY(180deg) translateZ(calc(var(--lp-ld)/2));
   background:radial-gradient(120% 120% at 35% 25%, var(--lp-metalA), var(--lp-metalB) 60%, var(--lp-metalD));border-radius:14px}
 .lp-l-back::after{content:"";position:absolute;left:50%;top:50%;width:54px;height:54px;transform:translate(-50%,-50%);
@@ -144,6 +149,11 @@ img{display:block;max-width:100%}
 .lp-glow{position:absolute;inset:8px 6px 6px 6px;border-radius:7px;opacity:0;z-index:2;pointer-events:none;
   background:radial-gradient(130% 120% at 50% 0%, color-mix(in srgb,var(--accent) 24%,transparent), transparent 55%),
             radial-gradient(100% 100% at 50% 120%, color-mix(in srgb,#22d3ee 12%,transparent), transparent 60%)}
+/* terminal de boot — una pantalla apagada es oscura en ambos temas */
+.lp-boot{position:absolute;inset:8px 6px 6px 6px;border-radius:7px;overflow:hidden;opacity:0;z-index:1;
+  margin:0;padding:8% 8%;background:#0a0c12;color:#8b95a8;
+  font-family:var(--mono);font-size:11px;line-height:1.9;white-space:pre-wrap;word-break:break-word}
+.lp-boot::after{content:"▍";color:var(--green);animation:gcblink 1s steps(1) infinite}
 .lp-mini{position:absolute;inset:8px 6px 6px 6px;border-radius:7px;overflow:hidden;opacity:0;z-index:1;
   display:flex;flex-direction:column;justify-content:center;gap:13px;padding:0 8%;
   background:var(--bg);color:var(--ink)}
@@ -345,6 +355,15 @@ section{padding:96px 0}
   .container{padding:0 20px}
   section{padding:64px 0}
   .nav-links{padding:8px 20px 16px}
+}
+/* laptop compacta para la intro corta de mobile */
+@media (max-width:760px){
+  :root{--lp-bw:320px;--lp-bh:14px;--lp-bd:220px;--lp-lw:320px;--lp-lh:220px;--lp-ld:8px}
+  .lp-mini{gap:8px}
+  .lp-mini-name{font-size:26px}
+  .lp-mini-sub{font-size:11px;max-width:26ch}
+  .lp-notch{width:48px;height:10px}
+  .lp-boot{font-size:9.5px;line-height:1.8}
 }
 
 /* ---------- REDUCED MOTION ----------

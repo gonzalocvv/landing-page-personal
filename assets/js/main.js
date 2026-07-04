@@ -201,6 +201,7 @@
       lang = lang === "en" ? "es" : "en";
       try { localStorage.setItem("gc-lang", lang); } catch (e) {}
       applyLang(); buildSkills(); buildProjects();
+      bootLast = -1; renderBoot(); // re-tipea el boot de la intro en el idioma nuevo
     });
 
     var header = document.querySelector(".site-header"), burger = $("nav-burger"), panel = $("nav-panel");
@@ -639,16 +640,36 @@
     });
   }
 
-  /* ---------------- INTRO · LAPTOP 3D (scroll, estilo HD) ---------------- */
+  /* ---------------- INTRO · LAPTOP 3D (scroll cinemático) ----------------
+     Coreografía scrubbeada: abrir → boot tipeado → login → dolly-in → handoff.
+     Todo es función pura del progress: scrollear para atrás "des-tipea" y un
+     reload a mitad de pin re-renderiza el estado exacto. */
+
+  // texto del boot por idioma — se lee en vivo (el toggle EN re-tipea en el otro idioma)
+  var BOOT = {
+    es: ["gc-os v2.0 — boot", "> cargando perfil… ok", "> stack: c# · .net 8 · sql", "> último deploy: cambiala.uy ✓", "> iniciando portfolio…"],
+    en: ["gc-os v2.0 — boot", "> loading profile… ok", "> stack: c# · .net 8 · sql", "> latest deploy: cambiala.uy ✓", "> starting portfolio…"]
+  };
+  var bootProxy = { p: 0 }, bootLast = -1, bootEl = null, bootLines = BOOT.es.length;
+  function renderBoot() {
+    if (!bootEl) return;
+    var flat = BOOT[lang === "en" ? "en" : "es"].slice(0, bootLines).join("\n");
+    var n = Math.round(bootProxy.p * flat.length);
+    if (n === bootLast) return;
+    bootLast = n;
+    bootEl.textContent = flat.slice(0, n); // 1 write como máximo por frame
+  }
+
   function initIntro() {
     var stage = $("introStage"), hero = $("heroReveal"), lp = $("lp");
     if (!stage || !hero) return;
-    var reduce = false;
-    try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
-    var small = (window.innerWidth || 1280) < 760;
 
-    // Sin GSAP, en mobile o con reduce-motion → mostramos el hero directo (sin laptop).
-    if (reduce || small || !window.gsap || !window.ScrollTrigger) {
+    var hash = "";
+    try { hash = location.hash; } catch (e) {}
+
+    // Fallbacks → hero directo ("frame final"): reduced-motion, sin GSAP (CDN caído),
+    // deep-link a una sección (el pin rompería el anchor) o landscape muy bajo.
+    if (REDUCE || !window.gsap || !window.ScrollTrigger || (hash && hash !== "#inicio") || window.innerHeight < 500) {
       hero.style.opacity = "1";
       return;
     }
@@ -657,56 +678,141 @@
         glow = $("lpGlow"), mini = $("lpMini"), hint = $("introHint"),
         fit = document.querySelector(".lp-fit"),
         header = document.querySelector(".site-header");
+    bootEl = $("lpBoot");
 
-    gsap.registerPlugin(ScrollTrigger);
-    stage.classList.add("intro-armed");
+    gsap.registerPlugin(ScrollTrigger); // idempotente (initLenis ya lo hizo si Lenis cargó)
+    window.scrollTo(0, 0); // el head ya puso scrollRestoration=manual (solo sin hash)
 
-    // la intro tiene que arrancar desde arriba: evitamos que el browser restaure
-    // el scroll a media página en un reload (rompería el pin y el zoom).
-    try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
-    window.scrollTo(0, 0);
+    // Medición del handoff — reemplaza los números mágicos viejos (y:175 / scale:3.8).
+    // Probe síncrono: cuadra el modelo vía GSAP (mantiene su caché de transforms en
+    // sync), mide la pantalla proyectada y restaura. Coordenadas relativas al stage,
+    // no al viewport, para que un refresh a mitad de scroll no las contamine.
+    function measureHandoff() {
+      var snap = {
+        rx: gsap.getProperty(rig, "rotationX"), ry: gsap.getProperty(rig, "rotationY"),
+        hx: gsap.getProperty(hinge, "rotationX"), sc: gsap.getProperty(world, "scaleX"),
+        fx: gsap.getProperty(fit, "x"), fy: gsap.getProperty(fit, "y")
+      };
+      gsap.set(rig, { rotationX: 0, rotationY: 0 });
+      gsap.set(hinge, { rotationX: 0 });
+      gsap.set(world, { scale: 1 });
+      gsap.set(fit, { x: 0, y: 0 });
+      var r = mini.getBoundingClientRect(); // pantalla útil, con la reducción por perspectiva incluida
+      var w = world.getBoundingClientRect();
+      var s = stage.getBoundingClientRect();
+      var vw = window.innerWidth, vh = window.innerHeight;
+      var H = {
+        scale: Math.max(vw / r.width, vh / r.height) * 1.03, // cover + 3% de sangrado
+        dx: (s.left + s.width / 2) - (r.left + r.width / 2),
+        dy: (s.top + Math.min(s.height, vh) / 2) - (r.top + r.height / 2),
+        origin: ((r.left + r.width / 2 - w.left) / w.width * 100) + "% " +
+                ((r.top + r.height / 2 - w.top) / w.height * 100) + "%"
+      };
+      gsap.set(rig, { rotationX: snap.rx, rotationY: snap.ry });
+      gsap.set(hinge, { rotationX: snap.hx });
+      gsap.set(world, { scale: snap.sc });
+      gsap.set(fit, { x: snap.fx, y: snap.fy });
+      gsap.set(world, { transformOrigin: H.origin });
+      return H;
+    }
 
-    // estado inicial explícito (más confiable que leerlo del CSS)
-    gsap.set(rig, { rotationX: 16, rotationY: -30 });
-    gsap.set(hinge, { rotationX: -90 });
-    gsap.set(hero, { opacity: 0 });
-    if (header) gsap.set(header, { autoAlpha: 0 });
+    // encendido de pantalla real (parpadea antes de estabilizarse), no un fade lineal
+    function flicker() {
+      return { keyframes: [{ opacity: .5, duration: .12 }, { opacity: .2, duration: .08 }, { opacity: .85, duration: .15 }] };
+    }
+    function cleanup() {
+      stage.classList.remove("intro-armed");
+      bootProxy.p = 0; bootLast = -1;
+      if (bootEl) bootEl.textContent = "";
+    }
 
-    var tl = gsap.timeline({
-      defaults: { ease: "none" },
-      scrollTrigger: { trigger: stage, start: "top top", end: "+=340%", scrub: 1, pin: stage, anticipatePin: 1 }
+    var mm = gsap.matchMedia();
+
+    // ---- DESKTOP (≥760px): secuencia completa con dolly-in a la pantalla
+    mm.add("(min-width: 760px)", function () {
+      bootLines = BOOT.es.length;
+      stage.classList.add("intro-armed");
+      var H = measureHandoff();
+
+      gsap.set(rig, { rotationX: 16, rotationY: -30 });
+      gsap.set(hinge, { rotationX: -90 });
+      gsap.set(hero, { autoAlpha: 0 });
+      if (header) gsap.set(header, { autoAlpha: 0 });
+
+      var tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: stage, start: "top top", end: "+=320%",
+          scrub: true, // Lenis ya suaviza el input; scrub:1 duplicaría el lag
+          pin: stage, anticipatePin: 1, invalidateOnRefresh: true,
+          onRefreshInit: function () { H = measureHandoff(); }
+        }
+      });
+
+      tl.to(hint, { autoAlpha: 0, duration: .3, ease: "power1.out" }, 0);
+      // A — órbita + apertura de la tapa
+      tl.to(rig, { rotationY: -6, rotationX: 8, duration: 1.6, ease: "power2.inOut" }, 0);
+      tl.to(hinge, { rotationX: -8, duration: 1.5, ease: "power3.inOut" }, 0.15);
+      tl.to(glow, flicker(), 0.9);
+      tl.set(bootEl, { opacity: 1 }, 0.95);
+      // B — boot tipeado por progress (determinístico, sin timers)
+      tl.to(bootProxy, { p: 1, duration: 1.3, ease: "none", onUpdate: renderBoot }, 1.4);
+      // C — "login": crossfade boot→mini mientras cuadra de frente
+      tl.to(bootEl, { autoAlpha: 0, duration: .5, ease: "power2.inOut" }, 2.7);
+      tl.to(mini, { opacity: 1, duration: .5, ease: "power2.inOut" }, 2.75);
+      tl.to(rig, { rotationX: 0, rotationY: 0, duration: .85, ease: "power2.inOut" }, 2.7);
+      tl.to(hinge, { rotationX: 0, duration: .85, ease: "power2.inOut" }, 2.7);
+      tl.to(".lp-shadow", { opacity: 0, duration: .5 }, 2.9);
+      // D — dolly-in: primero centra la pantalla, después "entra la cámara"
+      tl.to(fit, { x: function () { return H.dx; }, y: function () { return H.dy; }, duration: .7, ease: "power2.inOut" }, 3.5);
+      tl.to(world, { scale: function () { return H.scale; }, duration: 1.4, ease: "power2.in" }, 3.7);
+      // el teclado sale de cámara: fade de las CARAS de la base (hojas del árbol 3D —
+      // animar el contenedor con preserve-3d lo aplanaría)
+      tl.to(".lp-base .lp-face", { opacity: 0, duration: .4, ease: "power1.out" }, 4.6);
+      // E — handoff al hero real
+      tl.to(lp, { autoAlpha: 0, duration: .45, ease: "power1.out" }, 5.0);
+      if (header) tl.to(header, { autoAlpha: 1, duration: .5 }, 5.15);
+      tl.fromTo(hero, { autoAlpha: 0, y: 18, scale: .985 }, { autoAlpha: 1, y: 0, scale: 1, duration: .6, ease: "power4.out" }, 5.25);
+      tl.to({}, { duration: .35 }); // hold antes de soltar el pin
+
+      return cleanup;
     });
 
-    // 1 — órbita + apertura de la tapa
-    tl.to(hint, { opacity: 0, duration: .3, ease: "power1.out" }, 0);
-    tl.to(rig, { rotationY: 0, rotationX: 6, duration: 2.0, ease: "power2.inOut" }, 0);
-    tl.to(hinge, { rotationX: 4, duration: 1.9, ease: "power2.inOut" }, 0.25);
-    tl.to(glow, { opacity: 1, duration: 1.0 }, 0.9);
-    tl.to(mini, { opacity: 1, duration: .8 }, 1.15);
+    // ---- MOBILE (<760px): versión corta — abrir + boot breve + crossfade, sin dolly
+    mm.add("(max-width: 759.98px)", function () {
+      bootLines = 3;
+      stage.classList.add("intro-armed");
 
-    // 2 — cuadrar de frente: laptop frontal + tapa vertical
-    tl.to(rig, { rotationX: 0, rotationY: 0, duration: .85, ease: "power2.inOut" }, 2.0);
-    tl.to(hinge, { rotationX: 0, duration: .85, ease: "power2.inOut" }, 2.0);
-    tl.to(".lp-shadow", { opacity: 0, duration: .5 }, 2.2);
+      gsap.set(rig, { rotationX: 10, rotationY: -14 });
+      gsap.set(hinge, { rotationX: -90 });
+      gsap.set(hero, { autoAlpha: 0 });
+      if (header) gsap.set(header, { autoAlpha: 0 });
 
-    // 3a — la laptop baja apenas para dejar el CENTRO DE LA PANTALLA en el medio del
-    //      viewport (medido: la pantalla está ~29% de alto → la bajamos ~175px). Esto es
-    //      lo que hace que, al escalar, el teclado salga por abajo ANTES que la cámara.
-    tl.to(fit, { y: 175, duration: .7, ease: "power2.inOut" }, 2.85);
+      var tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: stage, start: "top top", end: "+=150%",
+          scrub: 0.6, // en touch Lenis no suaviza: el scrub aporta el smoothing
+          pin: stage, anticipatePin: 1, invalidateOnRefresh: true
+        }
+      });
 
-    // 3b — zoom SIMÉTRICO desde el centro de la pantalla ya centrada. La pantalla llena el
-    //      viewport y queda como lo último visible; su fondo == el de la página (corte continuo).
-    tl.to(world, { scale: 3.8, transformOrigin: "50% 29%", duration: 1.45, ease: "power3.in" }, 3.0);
+      tl.to(hint, { autoAlpha: 0, duration: .25, ease: "power1.out" }, 0);
+      tl.to(rig, { rotationX: 0, rotationY: 0, duration: 1.0, ease: "power2.inOut" }, 0);
+      tl.to(hinge, { rotationX: 0, duration: 1.0, ease: "power3.inOut" }, 0.05);
+      tl.to(glow, flicker(), 0.55);
+      tl.set(bootEl, { opacity: 1 }, 0.6);
+      tl.to(bootProxy, { p: 1, duration: .9, ease: "none", onUpdate: renderBoot }, 0.65);
+      tl.to(bootEl, { autoAlpha: 0, duration: .3, ease: "power2.inOut" }, 1.6);
+      tl.to(mini, { opacity: 1, duration: .3, ease: "power2.inOut" }, 1.65);
+      // crossfade directo laptop→hero (el dolly zoom en pantallas chicas marea)
+      tl.to(lp, { autoAlpha: 0, duration: .5, ease: "power1.out" }, 2.0);
+      if (header) tl.to(header, { autoAlpha: 1, duration: .4 }, 2.1);
+      tl.fromTo(hero, { autoAlpha: 0, y: 14, scale: .985 }, { autoAlpha: 1, y: 0, scale: 1, duration: .5, ease: "power4.out" }, 2.15);
+      tl.to({}, { duration: .3 });
 
-    // 4 — HANDOFF SECUENCIADO (mata el "doble texto" que se veía en las capturas):
-    //     1º se desvanece por completo la pantalla 3D…
-    tl.to(lp, { opacity: 0, duration: .5, ease: "power1.out" }, 4.4);
-    if (header) tl.to(header, { autoAlpha: 1, duration: .5 }, 4.6);
-    //     …y recién DESPUÉS aparece el hero real en DOM (solapamiento mínimo, ~1 frame).
-    tl.fromTo(hero, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .55, ease: "power2.out" }, 4.85);
-
-    // 5 — hold breve sobre el hero antes de soltar el pin
-    tl.to({}, { duration: .5 });
+      return cleanup;
+    });
 
     wait(350, function () { try { ScrollTrigger.refresh(); } catch (e) {} });
   }
