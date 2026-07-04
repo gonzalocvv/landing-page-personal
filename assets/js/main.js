@@ -150,6 +150,62 @@
   function wait(ms, fn) { var id = setTimeout(fn, ms); timers.push(id); return id; }
   function $(id) { return document.getElementById(id); }
 
+  /* ---------------- ENGINE · VISIBILIDAD ----------------
+     El render 3D y la simulación de build corrían para siempre, incluso con el
+     panel fuera de pantalla o la pestaña oculta. Un solo controlador pausa y
+     reanuda todo junto: rAF loop, timers de la sim y el tween del paquete. */
+  var engine = { inView: true, pageVisible: !document.hidden, running: false, activeTween: null };
+  function engineActive() { return engine.inView && engine.pageVisible; }
+
+  var simQueue = [];
+  function simWait(ms, fn) {
+    var item = { fn: fn, remaining: ms, firedAt: 0, id: 0 };
+    item.arm = function () {
+      item.firedAt = performance.now();
+      item.id = setTimeout(function () {
+        var i = simQueue.indexOf(item); if (i > -1) simQueue.splice(i, 1);
+        item.fn();
+      }, item.remaining);
+    };
+    simQueue.push(item);
+    if (engineActive()) item.arm(); // pausado → queda en cola y lo arma resumeSim()
+    return item;
+  }
+  function pauseSim() {
+    simQueue.forEach(function (it) {
+      if (it.id) {
+        clearTimeout(it.id);
+        it.remaining = Math.max(0, it.remaining - (performance.now() - it.firedAt));
+        it.id = 0;
+      }
+    });
+  }
+  function resumeSim() {
+    simQueue.forEach(function (it) { if (!it.id) it.arm(); });
+  }
+
+  function startLoop() {
+    if (REDUCE || engine.running || !three) return;
+    engine.running = true;
+    rafId = requestAnimationFrame(animate3D);
+  }
+  function stopLoop() {
+    engine.running = false;
+    if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+  }
+  function syncEngine() {
+    if (engineActive()) { startLoop(); resumeSim(); if (engine.activeTween) engine.activeTween.play(); }
+    else { stopLoop(); pauseSim(); if (engine.activeTween) engine.activeTween.pause(); }
+  }
+  function initEngineVisibility() {
+    var panel = document.querySelector(".engine");
+    if (panel && "IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (e) { engine.inView = e[0].isIntersecting; syncEngine(); }, { threshold: 0 });
+      io.observe(panel);
+    }
+    document.addEventListener("visibilitychange", function () { engine.pageVisible = !document.hidden; syncEngine(); });
+  }
+
   /* ---------------- SCROLL · LENIS ----------------
      Lenis es el único smooth-scroll (se quitó scroll-behavior del CSS) y el
      ticker de GSAP es el único dueño del rAF (autoRaf:false — nunca los dos). */
@@ -397,6 +453,19 @@
 
     applySceneColors();
 
+    // niebla al color de fondo: da profundidad real (lo lejano se funde con la página)
+    scene.fog = new THREE.Fog(col.bg, 8, 16);
+
+    // textura radial blanca→transparente para halos/partículas suaves
+    function radialTexture(size, stops) {
+      var c = document.createElement("canvas"); c.width = c.height = size;
+      var g = c.getContext("2d");
+      var grad = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      stops.forEach(function (s) { grad.addColorStop(s[0], s[1]); });
+      g.fillStyle = grad; g.fillRect(0, 0, size, size);
+      return new THREE.CanvasTexture(c);
+    }
+
     var R = 3.15; hubs = [];
     var hubGeo = new THREE.SphereGeometry(0.26, 24, 24);
     var haloGeo = new THREE.SphereGeometry(0.5, 24, 24);
@@ -405,7 +474,8 @@
       var x = Math.cos(ang) * R, z = Math.sin(ang) * R, y = Math.sin(ang * 2) * 0.55;
       var mat = new THREE.MeshBasicMaterial({ color: col.ink });
       var m = new THREE.Mesh(hubGeo, mat); m.position.set(x, y, z); group.add(m);
-      var hmat = new THREE.MeshBasicMaterial({ color: col.accent, transparent: true, opacity: 0 });
+      // additive: el halo suma luz en vez de tapar la esfera
+      var hmat = new THREE.MeshBasicMaterial({ color: col.accent, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
       var halo = new THREE.Mesh(haloGeo, hmat); halo.position.set(x, y, z); group.add(halo);
       hubs.push({ m: m, mat: mat, halo: halo, hmat: hmat, base: new THREE.Vector3(x, y, z) });
     }
@@ -417,7 +487,12 @@
       wpos[j * 3] = wx; wpos[j * 3 + 1] = wy; wpos[j * 3 + 2] = wz; workerBase.push(new THREE.Vector3(wx, wy, wz));
     }
     var wgeo = new THREE.BufferGeometry(); wgeo.setAttribute("position", new THREE.BufferAttribute(wpos, 3));
-    workerMat = new THREE.PointsMaterial({ color: col.worker, size: 0.14, sizeAttenuation: true, transparent: true, opacity: 0.85 });
+    // partículas redondas y suaves (sin textura eran cuadrados duros)
+    workerMat = new THREE.PointsMaterial({
+      color: col.worker, size: 0.17, sizeAttenuation: true, transparent: true, opacity: 0.85,
+      map: radialTexture(64, [[0, "rgba(255,255,255,1)"], [0.4, "rgba(255,255,255,.9)"], [1, "rgba(255,255,255,0)"]]),
+      alphaTest: 0.01, depthWrite: false
+    });
     group.add(new THREE.Points(wgeo, workerMat));
 
     var lp = [];
@@ -432,7 +507,12 @@
     group.add(new THREE.LineSegments(lgeo, edgeMat));
 
     var core = new THREE.Mesh(new THREE.SphereGeometry(0.17, 16, 16), new THREE.MeshBasicMaterial({ color: col.accent }));
-    var glow = new THREE.Mesh(new THREE.SphereGeometry(0.36, 16, 16), new THREE.MeshBasicMaterial({ color: col.accent, transparent: true, opacity: 0.25 }));
+    // glow del paquete como sprite additive: halo suave siempre de cara a cámara
+    var glow = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: radialTexture(128, [[0, "rgba(255,255,255,.95)"], [0.35, "rgba(255,255,255,.4)"], [1, "rgba(255,255,255,0)"]]),
+      color: col.accent, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false
+    }));
+    glow.scale.set(1.1, 1.1, 1);
     core.visible = false; glow.visible = false; group.add(core); group.add(glow);
     packet3 = { core: core, glow: glow, coreMat: core.material, glowMat: glow.material };
 
@@ -444,6 +524,12 @@
       tilt.x = ((e.clientY - b.top) / b.height - 0.5);
       tilt.y = ((e.clientX - b.left) / b.width - 0.5);
       if (dragging) { orbit.y += (e.clientX - px) * 0.006; orbit.x += (e.clientY - py) * 0.006; px = e.clientX; py = e.clientY; }
+      // reduced-motion: sin loop, pero el drag (movimiento pedido por el usuario) re-renderiza on-demand
+      if (REDUCE && dragging) {
+        group.rotation.y = orbit.y;
+        group.rotation.x = orbit.x;
+        renderOnce();
+      }
     });
     wrap.addEventListener("pointerdown", function (e) { dragging = true; px = e.clientX; py = e.clientY; wrap.style.cursor = "grabbing"; try { wrap.setPointerCapture(e.pointerId); } catch (_) {} });
     function endDrag() { dragging = false; wrap.style.cursor = "grab"; }
@@ -451,27 +537,45 @@
     wrap.addEventListener("pointercancel", endDrag);
 
     ready3d = true;
-    setActive(curPhase);
-    animate3D();
+    if (REDUCE) {
+      // frame final estático: todo el equipo en verde, un solo render
+      hubState = AGENTS.map(function () { return "done"; });
+      recolorHubs();
+      labelsAllDone();
+      renderOnce();
+    } else {
+      setActive(curPhase);
+      startLoop();
+    }
+  }
+
+  function renderOnce() {
+    if (!three) return;
+    three.renderer.render(three.scene, three.cam);
+    updateLabels();
   }
 
   function applySceneColors() {
     var THREE = window.THREE; if (!THREE) return;
     var page = document.documentElement;
     var dark = page.getAttribute("data-theme") === "dark";
-    var acc = "#6366f1";
-    try { acc = (getComputedStyle(page).getPropertyValue("--accent") || "#6366f1").trim() || "#6366f1"; } catch (_) {}
+    var acc = "#6366f1", bgc = dark ? "#0a0e16" : "#f6f7f9";
+    try { acc = (getComputedStyle(page).getPropertyValue("--accent") || acc).trim() || acc; } catch (_) {}
+    try { bgc = (getComputedStyle(page).getPropertyValue("--bg") || bgc).trim() || bgc; } catch (_) {}
     col = {
       ink: new THREE.Color(dark ? 0xeef1f6 : 0x0f1722),
       accent: new THREE.Color(acc),
       green: new THREE.Color(dark ? 0x34d399 : 0x10b981),
       worker: new THREE.Color(dark ? 0x4a5870 : 0x9aa6b8),
-      edge: new THREE.Color(dark ? 0x39455a : 0xb6bdc9)
+      edge: new THREE.Color(dark ? 0x39455a : 0xb6bdc9),
+      bg: new THREE.Color(bgc)
     };
     if (workerMat) workerMat.color.copy(col.worker);
     if (edgeMat) edgeMat.color.copy(col.edge);
     if (packet3) { packet3.coreMat.color.copy(col.accent); packet3.glowMat.color.copy(col.accent); }
+    if (three && three.scene && three.scene.fog) three.scene.fog.color.copy(col.bg);
     recolorHubs();
+    if (REDUCE) renderOnce(); // sin loop, el cambio de tema re-renderiza una vez
   }
 
   function recolorHubs() {
@@ -510,7 +614,7 @@
   }
 
   function animate3D() {
-    if (!three) return;
+    if (!three || !engine.running) return;
     var renderer = three.renderer, scene = three.scene, cam = three.cam, group = three.group;
     spin += 0.0022;
     var ty = orbit.y + tilt.y * 0.5;
@@ -529,6 +633,7 @@
     if (!three) return;
     three.renderer.setSize(three.getW(), three.getH(), false);
     three.cam.aspect = three.getW() / three.getH(); three.cam.updateProjectionMatrix();
+    if (!engine.running) renderOnce(); // pausado o reduced-motion: que el resize no deje el canvas roto
   }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function hlLine(line) {
@@ -568,14 +673,35 @@
       if (mono) { mono.style.background = "var(--surface)"; mono.style.borderColor = "var(--line)"; mono.style.color = "var(--faint)"; role.style.opacity = "0"; }
     });
   }
+  function labelsAllDone() {
+    if (!labels3) return;
+    labels3.forEach(function (el) {
+      var mono = el.querySelector(".lab-mono");
+      if (mono) { mono.style.background = "var(--surface)"; mono.style.borderColor = "var(--green)"; mono.style.color = "var(--green)"; }
+    });
+  }
+  /* Tipeo O(n): antes se re-resaltaba el snippet COMPLETO en cada carácter (O(n²)).
+     Ahora hay tres spans fijos — lo ya tipeado, la línea en curso y el caret — y por
+     tick solo se re-resalta la línea en curso. 2 chars por tick = mitad de timers. */
   function typeCode(idx, done) {
     var el = $("editor"); if (!el) { if (done) done(); return; }
-    var full = SNIPS[idx], n = 0;
+    var lines = SNIPS[idx].split("\n");
+    el.innerHTML = "<span data-done></span><span data-cur></span><span class='ed-caret'>▍</span>";
+    var doneEl = el.firstChild, curEl = doneEl.nextSibling;
+    var li = 0, ci = 0;
     function tick() {
-      el.innerHTML = hl(full.slice(0, n)) + "<span style='color:#818cf8'>▍</span>";
-      if (n >= full.length) { if (done) done(); return; }
-      var ch = full[n]; n++;
-      wait(ch === "\n" ? 40 : (ch === " " ? 10 : 16), tick);
+      var line = lines[li];
+      ci = Math.min(ci + 2, line.length);
+      curEl.innerHTML = hlLine(line.slice(0, ci));
+      if (ci >= line.length) {
+        doneEl.innerHTML += hlLine(line) + "\n";
+        curEl.innerHTML = "";
+        li++; ci = 0;
+        if (li >= lines.length) { if (done) done(); return; }
+        simWait(40, tick);
+        return;
+      }
+      simWait(18, tick);
     }
     tick();
   }
@@ -586,26 +712,45 @@
     host.insertBefore(row, host.firstChild);
     while (host.children.length > 3) host.removeChild(host.lastChild);
   }
+  /* Vuelo del paquete con GSAP (antes: setTimeout(16) recursivo → jitter bajo carga).
+     El easing lo pone el tween; acá solo se evalúa la Bézier cuadrática en pr.t. */
   function handoff(from, to, cb) {
-    if (!ready3d || !packet3 || !hubs) { if (cb) cb(); return; }
+    if (!ready3d || !packet3 || !hubs || !window.gsap) { if (cb) cb(); return; }
     var a = hubs[from].base, b = hubs[to].base;
     var mid = a.clone().add(b).multiplyScalar(0.5);
     var ctrl = mid.clone().add(mid.clone().normalize().multiplyScalar(1.2));
     var back = to <= from;
-    var dur = back ? 1000 : 640, t0 = performance.now();
     packet3.core.visible = true; packet3.glow.visible = true;
-    function step() {
-      var t = Math.min(1, (performance.now() - t0) / dur);
-      var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      var x = (1 - e) * (1 - e) * a.x + 2 * (1 - e) * e * ctrl.x + e * e * b.x;
-      var y = (1 - e) * (1 - e) * a.y + 2 * (1 - e) * e * ctrl.y + e * e * b.y;
-      var z = (1 - e) * (1 - e) * a.z + 2 * (1 - e) * e * ctrl.z + e * e * b.z;
-      packet3.core.position.set(x, y, z); packet3.glow.position.set(x, y, z);
-      if (t < 1) wait(16, step);
-      else { packet3.core.visible = false; packet3.glow.visible = false; if (cb) cb(); }
-    }
-    step();
+    var pr = { t: 0 };
+    engine.activeTween = gsap.to(pr, {
+      t: 1, duration: back ? 1 : 0.64, ease: "power2.inOut",
+      onUpdate: function () {
+        var e = pr.t;
+        var x = (1 - e) * (1 - e) * a.x + 2 * (1 - e) * e * ctrl.x + e * e * b.x;
+        var y = (1 - e) * (1 - e) * a.y + 2 * (1 - e) * e * ctrl.y + e * e * b.y;
+        var z = (1 - e) * (1 - e) * a.z + 2 * (1 - e) * e * ctrl.z + e * e * b.z;
+        packet3.core.position.set(x, y, z); packet3.glow.position.set(x, y, z);
+      },
+      onComplete: function () {
+        engine.activeTween = null;
+        packet3.core.visible = false; packet3.glow.visible = false;
+        if (cb) cb();
+      }
+    });
+    if (!engineActive()) engine.activeTween.pause();
   }
+  /* Reduced-motion: el panel muestra el "frame final" — equipo completo en verde,
+     último snippet resaltado, log lleno, versión shipped — sin ningún loop. La parte
+     3D equivalente la setea init3D cuando Three termina de cargar (diferido). */
+  function setShippedStatic() {
+    var st = $("eng-status"), file = $("ed-file"), by = $("ed-by"), ed = $("editor");
+    if (st) st.textContent = "shipped ✓";
+    if (file) file.textContent = FILES[5];
+    if (by) by.textContent = "— " + AGENTS[5].role.toLowerCase();
+    if (ed) ed.innerHTML = hl(SNIPS[5]);
+    for (var i = 0; i < LOG.length; i++) appendLog(i); // el cap deja las últimas 3
+  }
+
   function runPhase(i) {
     curPhase = i;
     var A = AGENTS[i], st = $("eng-status"), file = $("ed-file"), by = $("ed-by");
@@ -615,7 +760,7 @@
     if (by) by.textContent = "— " + A.role.toLowerCase();
     typeCode(i, function () {
       appendLog(i);
-      wait(620, function () {
+      simWait(620, function () {
         if (i < 5) handoff(i, i + 1, function () { runPhase(i + 1); });
         else ship();
       });
@@ -627,11 +772,8 @@
     if (ver) ver.textContent = "v" + version.toFixed(1);
     if (st) st.textContent = "shipped ✓";
     hubState = AGENTS.map(function () { return "done"; }); recolorHubs();
-    if (labels3) labels3.forEach(function (el) {
-      var mono = el.querySelector(".lab-mono");
-      if (mono) { mono.style.background = "var(--surface)"; mono.style.borderColor = "var(--green)"; mono.style.color = "var(--green)"; }
-    });
-    wait(1100, function () {
+    labelsAllDone();
+    simWait(1100, function () {
       handoff(5, 0, function () {
         resetDots();
         var ed = $("editor"); if (ed) ed.innerHTML = "";
@@ -829,8 +971,13 @@
     initToggles();
     initReveal();
     initIntro();
+    initEngineVisibility();
     var y = $("year"); if (y) y.textContent = new Date().getFullYear();
-    requestAnimationFrame(function () { measure(); runPhase(0); });
+    requestAnimationFrame(function () {
+      measure();
+      if (REDUCE) setShippedStatic(); // frame final, sin loop infinito
+      else runPhase(0);
+    });
     window.addEventListener("resize", measure);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
